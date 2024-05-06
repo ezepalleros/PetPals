@@ -1,0 +1,30 @@
+import java.util.LinkedList;
+
+public class Cliente extends Usuario {
+    private String dirCli;
+
+    public Cliente(int codUsu, String nomUsu, String mailUsu, double telUsu, String dirCli) {
+        super(codUsu, nomUsu, mailUsu, telUsu);
+        this.dirCli = dirCli;
+    }
+
+    public String getDirCli() {
+        return dirCli;
+    }
+
+    public void setDirCli(String dirCli) {
+        this.dirCli = dirCli;
+    }
+    
+    public boolean esCliente() {
+        return true;
+    }
+
+    public boolean esEmpleado() {
+        return false;
+    }
+
+    public boolean esGerente() {
+        return false;
+    }
+}
