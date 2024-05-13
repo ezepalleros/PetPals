@@ -1,3 +1,4 @@
+package modelos;
 import java.util.LinkedList;
 
 public class Cliente extends Usuario {

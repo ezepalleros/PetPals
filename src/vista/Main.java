@@ -1,7 +1,15 @@
+package vista;
 import java.time.*;
 import java.util.*;
 
 import javax.swing.JOptionPane;
+
+import modelos.Cliente;
+import modelos.Empleado;
+import modelos.Gerente;
+import modelos.Mascota;
+import modelos.Servicio;
+import modelos.Usuario;
 
 public class Main {
 	public static void main(String[] args) {

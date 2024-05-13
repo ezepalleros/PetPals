@@ -1,3 +1,4 @@
+package modelos;
 import java.util.List;
 
 public abstract class Usuario {
