@@ -18,18 +18,18 @@ public class Main {
 		LinkedList<Servicio> serviciosDados = new LinkedList<Servicio>();
 		boolean irse1 = false, irseCliente = false, irseEmpleado = false, irseGerente = false;
 
-		Cliente cliente1 = new Cliente(100001, "Lucas Panca", "lucasPanga@gmail.com", 1157743897, "Chacabuco 2356");
-		Cliente cliente2 = new Cliente(100002, "Maria Engona", "mariaEngona@gmail.com", 1128890401,
+		Cliente cliente1 = new Cliente(100001, "LucasPanca", "lucasPanga@gmail.com", 1157743897, "Chacabuco 2356");
+		Cliente cliente2 = new Cliente(100002, "MariaEngona", "mariaEngona@gmail.com", 1128890401,
 				"Juan B Justo 4511 c");
 
-		Empleado empleado1 = new Empleado(1001, "Oscar Hono", "oscarHono@guarda.com", 1167891234,
+		Empleado empleado1 = new Empleado(1001, "OscarHono", "oscarHono@guarda.com", 1167891234,
 				LocalDate.now().minusYears(10), "NO DATA", 5);
-		Empleado empleado2 = new Empleado(1002, "Juana Dominguez", "juanaDominguez@guarda.com", 1159970322,
+		Empleado empleado2 = new Empleado(1002, "JuanaDominguez", "juanaDominguez@guarda.com", 1159970322,
 				LocalDate.now().minusYears(5), "NO DATA", 4);
-		Empleado empleado3 = new Empleado(1003, "Lorena Passione", "lorenaPassione@guarda.com", 1184431699,
+		Empleado empleado3 = new Empleado(1003, "LorenaPassione", "lorenaPassione@guarda.com", 1184431699,
 				LocalDate.now().minusYears(7), "NO DATA", 4);
 
-		Gerente gerente = new Gerente(101, "Gerardo Corral", "gerardoCorral@guarda2.com", 1167339888);
+		Gerente gerente = new Gerente(101, "GerardoCorral", "gerardoCorral@guarda2.com", 1167339888);
 
 		cuentasCreadas.add(cliente1);
 		cuentasCreadas.add(cliente2);

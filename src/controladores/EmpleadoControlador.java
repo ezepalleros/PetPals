@@ -1,5 +1,5 @@
 
-package interfaces;
+package controladores;
 
 import java.sql.Connection;
 
@@ -11,36 +11,37 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import controladores.DatabaseConnection;
+import interfaces.EmpleadoRepository;
 import modelos.Cliente;
+import modelos.Empleado;
 
-public class ClienteControlador implements ClienteRepository {
+public class EmpleadoControlador implements EmpleadoRepository {
     private final Connection connection;
 
-    public ClienteControlador() {
+    public EmpleadoControlador() {
         this.connection = DatabaseConnection.getInstance().getConnection();
     }
 
     @Override
-    public List<Cliente> getAllUsers() {
-        List<Cliente> users = new ArrayList<>();
+    public List<Empleado> getAllUsers() {
+        List<Empleado> empleados = new ArrayList<>();
         try {
             PreparedStatement statement = connection.prepareStatement("SELECT * FROM users ");
             ResultSet resultSet = statement.executeQuery();
        
             while (resultSet.next()) {
-            	Cliente user = new Cliente(resultSet.getInt("id"), resultSet.getString("name"), resultSet.getString("email"), resultSet.getDouble("number"), resultSet.getString("direc"));
-                users.add(user);
+            	Empleado empleado = new Empleado(resultSet.getInt("id"), resultSet.getString("name"), resultSet.getString("email"), resultSet.getDouble("number"), resultSet.getDate("antiquity"), resultSet.getString("detail"), resultSet.getInt("calif"));
+            	empleados.add(empleado);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return users;
+        return empleados;
     }
 
     @Override
-    public Cliente getUserById(int id) {
-    	Cliente user = null;
+    public Empleado getUserById(int id) {
+    	Empleado empleados = null;
         try {
             PreparedStatement statement = connection.prepareStatement("SELECT * FROM users WHERE id = ?");
             statement.setInt(1, id);
@@ -48,22 +49,24 @@ public class ClienteControlador implements ClienteRepository {
             ResultSet resultSet = statement.executeQuery();
             
             if (resultSet.next()) {
-                user = new Cliente(resultSet.getInt("id"), resultSet.getString("name"), resultSet.getString("email"), resultSet.getDouble("number"), resultSet.getString("direc"));
+            	empleados = new Empleado(resultSet.getInt("id"), resultSet.getString("name"), resultSet.getString("email"), resultSet.getDouble("number"), resultSet.getDate("antiquity"), resultSet.getString("detail"), resultSet.getInt("calif"));
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return user;
+        return empleados;
     }
     
 	@Override
-    public void addUser(Cliente cliente) {
+    public void addUser(Empleado empleado) {
         try {
-            PreparedStatement statement = connection.prepareStatement("INSERT INTO users (name, email, number, direc) VALUES (?, ?, ?, ?)");
-            statement.setString(1, cliente.getNomUsu());
-            statement.setString(2, cliente.getMailUsu());
-            statement.setDouble(3, cliente.getTelUsu());
-            statement.setString(4, cliente.getDirCli());
+            PreparedStatement statement = connection.prepareStatement("INSERT INTO users (name, email, number, anti, detail, calif) VALUES (?, ?, ?, ?, ?, ?)");
+            statement.setString(1, empleado.getNomUsu());
+            statement.setString(2, empleado.getMailUsu());
+            statement.setDouble(3, empleado.getTelUsu());
+            statement.setDate(4, empleado.getAntiEmp());
+            statement.setString(5, empleado.getDetalleEmp());
+            statement.setInt(6, empleado.getCalifEmp());
             
             int rowsInserted = statement.executeUpdate();
             if (rowsInserted > 0) {
@@ -75,13 +78,15 @@ public class ClienteControlador implements ClienteRepository {
     }
 
 	@Override
-    public void updateUser(Cliente cliente) {
+    public void updateUser(Empleado empleado) {
         try {
-            PreparedStatement statement = connection.prepareStatement("UPDATE users SET name = ?, email = ?, number = ?, direc = ? WHERE id = ?");
-            statement.setString(1, cliente.getNomUsu());
-            statement.setString(2, cliente.getMailUsu());
-            statement.setDouble(3, cliente.getTelUsu());
-            statement.setString(4, cliente.getDirCli());
+            PreparedStatement statement = connection.prepareStatement("UPDATE users SET name = ?, email = ?, number = ?, anti = ?, detail = ?, calif = ? WHERE id = ?");
+            statement.setString(1, empleado.getNomUsu());
+            statement.setString(2, empleado.getMailUsu());
+            statement.setDouble(3, empleado.getTelUsu());
+            statement.setDate(4, empleado.getAntiEmp());
+            statement.setString(5, empleado.getDetalleEmp());
+            statement.setInt(6, empleado.getCalifEmp());
             
             int rowsUpdated = statement.executeUpdate();
             if (rowsUpdated > 0) {
@@ -106,7 +111,4 @@ public class ClienteControlador implements ClienteRepository {
             e.printStackTrace();
         }
     }
-
-
-  
 }

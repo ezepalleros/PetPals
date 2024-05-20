@@ -1,5 +1,5 @@
 
-package interfaces;
+package controladores;
 
 import java.sql.Connection;
 
@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import controladores.DatabaseConnection;
+import interfaces.MascotaRepository;
 import modelos.Mascota;
 
 public class MascotaControlador implements MascotaRepository {

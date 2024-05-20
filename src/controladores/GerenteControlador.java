@@ -1,7 +1,8 @@
 
-package interfaces;
+package controladores;
 
 import java.sql.Connection;
+
 
 
 
@@ -11,37 +12,37 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import controladores.DatabaseConnection;
+import interfaces.GerenteRepository;
 import modelos.Cliente;
-import modelos.Empleado;
+import modelos.Gerente;
 
-public class EmpleadoControlador implements EmpleadoRepository {
+public class GerenteControlador implements GerenteRepository {
     private final Connection connection;
 
-    public EmpleadoControlador() {
+    public GerenteControlador() {
         this.connection = DatabaseConnection.getInstance().getConnection();
     }
 
     @Override
-    public List<Empleado> getAllUsers() {
-        List<Empleado> empleados = new ArrayList<>();
+    public List<Gerente> getAllUsers() {
+        List<Gerente> gerentes = new ArrayList<>();
         try {
             PreparedStatement statement = connection.prepareStatement("SELECT * FROM users ");
             ResultSet resultSet = statement.executeQuery();
        
             while (resultSet.next()) {
-            	Empleado empleado = new Empleado(resultSet.getInt("id"), resultSet.getString("name"), resultSet.getString("email"), resultSet.getDouble("number"), resultSet.getDate("antiquity"), resultSet.getString("detail"), resultSet.getInt("calif"));
-            	empleados.add(empleado);
+            	Gerente gerente = new Gerente(resultSet.getInt("id"), resultSet.getString("name"), resultSet.getString("email"), resultSet.getDouble("number"));
+            	gerentes.add(gerente);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return empleados;
+        return gerentes;
     }
 
     @Override
-    public Empleado getUserById(int id) {
-    	Empleado empleados = null;
+    public Gerente getUserById(int id) {
+    	Gerente gerentes = null;
         try {
             PreparedStatement statement = connection.prepareStatement("SELECT * FROM users WHERE id = ?");
             statement.setInt(1, id);
@@ -49,24 +50,21 @@ public class EmpleadoControlador implements EmpleadoRepository {
             ResultSet resultSet = statement.executeQuery();
             
             if (resultSet.next()) {
-            	empleados = new Empleado(resultSet.getInt("id"), resultSet.getString("name"), resultSet.getString("email"), resultSet.getDouble("number"), resultSet.getDate("antiquity"), resultSet.getString("detail"), resultSet.getInt("calif"));
+            	gerentes = new Gerente(resultSet.getInt("id"), resultSet.getString("name"), resultSet.getString("email"), resultSet.getDouble("number"));
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return empleados;
+        return gerentes;
     }
     
 	@Override
-    public void addUser(Empleado empleado) {
+    public void addUser(Gerente gerente) {
         try {
-            PreparedStatement statement = connection.prepareStatement("INSERT INTO users (name, email, number, anti, detail, calif) VALUES (?, ?, ?, ?, ?, ?)");
-            statement.setString(1, empleado.getNomUsu());
-            statement.setString(2, empleado.getMailUsu());
-            statement.setDouble(3, empleado.getTelUsu());
-            statement.setDate(4, empleado.getAntiEmp());
-            statement.setString(5, empleado.getDetalleEmp());
-            statement.setInt(6, empleado.getCalifEmp());
+            PreparedStatement statement = connection.prepareStatement("INSERT INTO users (name, email, number) VALUES (?, ?, ?)");
+            statement.setString(1, gerente.getNomUsu());
+            statement.setString(2, gerente.getMailUsu());
+            statement.setDouble(3, gerente.getTelUsu());
             
             int rowsInserted = statement.executeUpdate();
             if (rowsInserted > 0) {
@@ -78,15 +76,12 @@ public class EmpleadoControlador implements EmpleadoRepository {
     }
 
 	@Override
-    public void updateUser(Empleado empleado) {
+    public void updateUser(Gerente gerente) {
         try {
-            PreparedStatement statement = connection.prepareStatement("UPDATE users SET name = ?, email = ?, number = ?, anti = ?, detail = ?, calif = ? WHERE id = ?");
-            statement.setString(1, empleado.getNomUsu());
-            statement.setString(2, empleado.getMailUsu());
-            statement.setDouble(3, empleado.getTelUsu());
-            statement.setDate(4, empleado.getAntiEmp());
-            statement.setString(5, empleado.getDetalleEmp());
-            statement.setInt(6, empleado.getCalifEmp());
+            PreparedStatement statement = connection.prepareStatement("UPDATE users SET name = ?, email = ?, number = ? WHERE id = ?");
+            statement.setString(1, gerente.getNomUsu());
+            statement.setString(2, gerente.getMailUsu());
+            statement.setDouble(3, gerente.getTelUsu());
             
             int rowsUpdated = statement.executeUpdate();
             if (rowsUpdated > 0) {

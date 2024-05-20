@@ -28,4 +28,9 @@ public class Cliente extends Usuario {
     public boolean esGerente() {
         return false;
     }
+
+	public boolean IniciarSesion(String string, String string2) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

@@ -1,8 +1,7 @@
 
-package interfaces;
+package controladores;
 
 import java.sql.Connection;
-
 
 
 
@@ -12,37 +11,36 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import controladores.DatabaseConnection;
+import interfaces.ClienteRepository;
 import modelos.Cliente;
-import modelos.Gerente;
 
-public class GerenteControlador implements GerenteRepository {
+public class ClienteControlador implements ClienteRepository {
     private final Connection connection;
 
-    public GerenteControlador() {
+    public ClienteControlador() {
         this.connection = DatabaseConnection.getInstance().getConnection();
     }
 
     @Override
-    public List<Gerente> getAllUsers() {
-        List<Gerente> gerentes = new ArrayList<>();
+    public List<Cliente> getAllUsers() {
+        List<Cliente> users = new ArrayList<>();
         try {
             PreparedStatement statement = connection.prepareStatement("SELECT * FROM users ");
             ResultSet resultSet = statement.executeQuery();
        
             while (resultSet.next()) {
-            	Gerente gerente = new Gerente(resultSet.getInt("id"), resultSet.getString("name"), resultSet.getString("email"), resultSet.getDouble("number"));
-            	gerentes.add(gerente);
+            	Cliente user = new Cliente(resultSet.getInt("id"), resultSet.getString("name"), resultSet.getString("email"), resultSet.getDouble("number"), resultSet.getString("direc"));
+                users.add(user);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return gerentes;
+        return users;
     }
 
     @Override
-    public Gerente getUserById(int id) {
-    	Gerente gerentes = null;
+    public Cliente getUserById(int id) {
+    	Cliente user = null;
         try {
             PreparedStatement statement = connection.prepareStatement("SELECT * FROM users WHERE id = ?");
             statement.setInt(1, id);
@@ -50,21 +48,22 @@ public class GerenteControlador implements GerenteRepository {
             ResultSet resultSet = statement.executeQuery();
             
             if (resultSet.next()) {
-            	gerentes = new Gerente(resultSet.getInt("id"), resultSet.getString("name"), resultSet.getString("email"), resultSet.getDouble("number"));
+                user = new Cliente(resultSet.getInt("id"), resultSet.getString("name"), resultSet.getString("email"), resultSet.getDouble("number"), resultSet.getString("direc"));
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return gerentes;
+        return user;
     }
     
 	@Override
-    public void addUser(Gerente gerente) {
+    public void addUser(Cliente cliente) {
         try {
-            PreparedStatement statement = connection.prepareStatement("INSERT INTO users (name, email, number) VALUES (?, ?, ?)");
-            statement.setString(1, gerente.getNomUsu());
-            statement.setString(2, gerente.getMailUsu());
-            statement.setDouble(3, gerente.getTelUsu());
+            PreparedStatement statement = connection.prepareStatement("INSERT INTO users (name, email, number, direc) VALUES (?, ?, ?, ?)");
+            statement.setString(1, cliente.getNomUsu());
+            statement.setString(2, cliente.getMailUsu());
+            statement.setDouble(3, cliente.getTelUsu());
+            statement.setString(4, cliente.getDirCli());
             
             int rowsInserted = statement.executeUpdate();
             if (rowsInserted > 0) {
@@ -76,12 +75,13 @@ public class GerenteControlador implements GerenteRepository {
     }
 
 	@Override
-    public void updateUser(Gerente gerente) {
+    public void updateUser(Cliente cliente) {
         try {
-            PreparedStatement statement = connection.prepareStatement("UPDATE users SET name = ?, email = ?, number = ? WHERE id = ?");
-            statement.setString(1, gerente.getNomUsu());
-            statement.setString(2, gerente.getMailUsu());
-            statement.setDouble(3, gerente.getTelUsu());
+            PreparedStatement statement = connection.prepareStatement("UPDATE users SET name = ?, email = ?, number = ?, direc = ? WHERE id = ?");
+            statement.setString(1, cliente.getNomUsu());
+            statement.setString(2, cliente.getMailUsu());
+            statement.setDouble(3, cliente.getTelUsu());
+            statement.setString(4, cliente.getDirCli());
             
             int rowsUpdated = statement.executeUpdate();
             if (rowsUpdated > 0) {
@@ -106,4 +106,7 @@ public class GerenteControlador implements GerenteRepository {
             e.printStackTrace();
         }
     }
+
+
+  
 }
