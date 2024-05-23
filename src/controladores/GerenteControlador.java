@@ -31,7 +31,7 @@ public class GerenteControlador implements GerenteRepository {
             ResultSet resultSet = statement.executeQuery();
        
             while (resultSet.next()) {
-            	Gerente gerente = new Gerente(resultSet.getInt("id"), resultSet.getString("name"), resultSet.getString("email"), resultSet.getDouble("number"));
+            	Gerente gerente = new Gerente(resultSet.getInt("codGer"), resultSet.getString("nomGer"), resultSet.getString("mailGer"), resultSet.getString("numGer"));
             	gerentes.add(gerente);
             }
         } catch (SQLException e) {
@@ -44,13 +44,13 @@ public class GerenteControlador implements GerenteRepository {
     public Gerente getUserById(int id) {
     	Gerente gerentes = null;
         try {
-            PreparedStatement statement = connection.prepareStatement("SELECT * FROM users WHERE id = ?");
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM users WHERE codGer = ?");
             statement.setInt(1, id);
             
             ResultSet resultSet = statement.executeQuery();
             
             if (resultSet.next()) {
-            	gerentes = new Gerente(resultSet.getInt("id"), resultSet.getString("name"), resultSet.getString("email"), resultSet.getDouble("number"));
+            	gerentes = new Gerente(resultSet.getInt("codGer"), resultSet.getString("nomGer"), resultSet.getString("mailGer"), resultSet.getString("numGer"));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -64,7 +64,7 @@ public class GerenteControlador implements GerenteRepository {
             PreparedStatement statement = connection.prepareStatement("INSERT INTO users (name, email, number) VALUES (?, ?, ?)");
             statement.setString(1, gerente.getNomUsu());
             statement.setString(2, gerente.getMailUsu());
-            statement.setDouble(3, gerente.getTelUsu());
+            statement.setString(3, gerente.getTelUsu());
             
             int rowsInserted = statement.executeUpdate();
             if (rowsInserted > 0) {
@@ -81,7 +81,7 @@ public class GerenteControlador implements GerenteRepository {
             PreparedStatement statement = connection.prepareStatement("UPDATE users SET name = ?, email = ?, number = ? WHERE id = ?");
             statement.setString(1, gerente.getNomUsu());
             statement.setString(2, gerente.getMailUsu());
-            statement.setDouble(3, gerente.getTelUsu());
+            statement.setString(3, gerente.getTelUsu());
             
             int rowsUpdated = statement.executeUpdate();
             if (rowsUpdated > 0) {

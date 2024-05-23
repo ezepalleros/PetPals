@@ -5,9 +5,9 @@ public abstract class Usuario {
     private int codUsu;
     private String nomUsu;
     private String mailUsu;
-    private double telUsu;
+    private String telUsu;
 
-    public Usuario(int codUsu, String nomUsu, String mailUsu, double telUsu) {
+    public Usuario(int codUsu, String nomUsu, String mailUsu, String telUsu) {
         this.codUsu = codUsu;
         this.nomUsu = nomUsu;
         this.mailUsu = mailUsu;
@@ -38,11 +38,11 @@ public abstract class Usuario {
         this.mailUsu = mailUsu;
     }
 
-    public double getTelUsu() {
+    public String getTelUsu() {
         return telUsu;
     }
 
-    public void setTelUsu(double telUsu) {
+    public void setTelUsu(String telUsu) {
         this.telUsu = telUsu;
     }
     

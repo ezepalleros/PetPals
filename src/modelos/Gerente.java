@@ -4,7 +4,7 @@ import java.util.LinkedList;
 public class Gerente extends Usuario {
     private LinkedList<Mascota> mascotasRefugio;
 
-    public Gerente(int codUsu, String nomUsu, String mailUsu, double telUsu) {
+    public Gerente(int codUsu, String nomUsu, String mailUsu, String telUsu) {
         super(codUsu, nomUsu, mailUsu, telUsu);
         this.mascotasRefugio = new LinkedList<>();
     }

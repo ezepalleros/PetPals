@@ -9,7 +9,7 @@ import modelos.Empleado;
 import modelos.Gerente;
 import modelos.Mascota;
 
-public class prueba {
+public class pruebaInicioSesion {
 
  @Test
  public void PruebaIniciarSesionV() {

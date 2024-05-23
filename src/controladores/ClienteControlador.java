@@ -29,7 +29,7 @@ public class ClienteControlador implements ClienteRepository {
             ResultSet resultSet = statement.executeQuery();
        
             while (resultSet.next()) {
-            	Cliente user = new Cliente(resultSet.getInt("id"), resultSet.getString("name"), resultSet.getString("email"), resultSet.getDouble("number"), resultSet.getString("direc"));
+            	Cliente user = new Cliente(resultSet.getInt("codCli"), resultSet.getString("nomCli"), resultSet.getString("mailCli"), resultSet.getString("dirCli"), resultSet.getString("numCli"));
                 users.add(user);
             }
         } catch (SQLException e) {
@@ -42,13 +42,13 @@ public class ClienteControlador implements ClienteRepository {
     public Cliente getUserById(int id) {
     	Cliente user = null;
         try {
-            PreparedStatement statement = connection.prepareStatement("SELECT * FROM users WHERE id = ?");
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM users WHERE codCli = ?");
             statement.setInt(1, id);
             
             ResultSet resultSet = statement.executeQuery();
             
             if (resultSet.next()) {
-                user = new Cliente(resultSet.getInt("id"), resultSet.getString("name"), resultSet.getString("email"), resultSet.getDouble("number"), resultSet.getString("direc"));
+                user = new Cliente(resultSet.getInt("codCli"), resultSet.getString("nomCli"), resultSet.getString("mailCli"), resultSet.getString("dirCli"), resultSet.getString("numCli"));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -59,11 +59,12 @@ public class ClienteControlador implements ClienteRepository {
 	@Override
     public void addUser(Cliente cliente) {
         try {
-            PreparedStatement statement = connection.prepareStatement("INSERT INTO users (name, email, number, direc) VALUES (?, ?, ?, ?)");
+            PreparedStatement statement = connection.prepareStatement("INSERT INTO users (nomCli, mailCli, dirCli, numCli) VALUES (?, ?, ?, ?)");
             statement.setString(1, cliente.getNomUsu());
             statement.setString(2, cliente.getMailUsu());
-            statement.setDouble(3, cliente.getTelUsu());
-            statement.setString(4, cliente.getDirCli());
+            statement.setString(3, cliente.getDirCli());
+            statement.setString(4, cliente.getTelUsu());
+
             
             int rowsInserted = statement.executeUpdate();
             if (rowsInserted > 0) {
@@ -77,11 +78,12 @@ public class ClienteControlador implements ClienteRepository {
 	@Override
     public void updateUser(Cliente cliente) {
         try {
-            PreparedStatement statement = connection.prepareStatement("UPDATE users SET name = ?, email = ?, number = ?, direc = ? WHERE id = ?");
+            PreparedStatement statement = connection.prepareStatement("UPDATE users SET nomCli = ?, mailCli = ?, dirCli = ?, numCli = ? WHERE codCli = ?");
             statement.setString(1, cliente.getNomUsu());
             statement.setString(2, cliente.getMailUsu());
-            statement.setDouble(3, cliente.getTelUsu());
             statement.setString(4, cliente.getDirCli());
+            statement.setString(3, cliente.getTelUsu());
+
             
             int rowsUpdated = statement.executeUpdate();
             if (rowsUpdated > 0) {
@@ -95,7 +97,7 @@ public class ClienteControlador implements ClienteRepository {
     @Override
     public void deleteUser(int id) {
         try {
-            PreparedStatement statement = connection.prepareStatement("DELETE FROM users WHERE id = ?");
+            PreparedStatement statement = connection.prepareStatement("DELETE FROM users WHERE codCli = ?");
             statement.setInt(1, id);
             
             int rowsDeleted = statement.executeUpdate();

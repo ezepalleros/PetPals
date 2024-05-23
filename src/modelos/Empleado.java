@@ -6,7 +6,7 @@ public class Empleado extends Usuario {
     private String detalleEmp;
     private int califEmp;
 
-    public Empleado(int codUsu, String nomUsu, String mailUsu, double telUsu, LocalDate antiEmp, String detalleEmp, int califEmp) {
+    public Empleado(int codUsu, String nomUsu, String mailUsu, String telUsu, LocalDate antiEmp, String detalleEmp, int califEmp) {
         super(codUsu, nomUsu, mailUsu, telUsu);
         this.antiEmp = antiEmp;
         this.detalleEmp = detalleEmp;

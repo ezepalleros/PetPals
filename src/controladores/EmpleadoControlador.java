@@ -30,7 +30,7 @@ public class EmpleadoControlador implements EmpleadoRepository {
             ResultSet resultSet = statement.executeQuery();
        
             while (resultSet.next()) {
-            	Empleado empleado = new Empleado(resultSet.getInt("id"), resultSet.getString("name"), resultSet.getString("email"), resultSet.getDouble("number"), resultSet.getDate("antiquity"), resultSet.getString("detail"), resultSet.getInt("calif"));
+            	Empleado empleado = new Empleado(resultSet.getInt("id"), resultSet.getString("name"), resultSet.getString("email"), resultSet.getString("number"), resultSet.getDate("antiquity").toLocalDate(), resultSet.getString("detail"), resultSet.getInt("calif"));
             	empleados.add(empleado);
             }
         } catch (SQLException e) {
@@ -49,7 +49,7 @@ public class EmpleadoControlador implements EmpleadoRepository {
             ResultSet resultSet = statement.executeQuery();
             
             if (resultSet.next()) {
-            	empleados = new Empleado(resultSet.getInt("id"), resultSet.getString("name"), resultSet.getString("email"), resultSet.getDouble("number"), resultSet.getDate("antiquity"), resultSet.getString("detail"), resultSet.getInt("calif"));
+            	empleados = new Empleado(resultSet.getInt("id"), resultSet.getString("name"), resultSet.getString("email"), resultSet.getString("number"), resultSet.getDate("antiquity").toLocalDate(), resultSet.getString("detail"), resultSet.getInt("calif"));
             }
         } catch (SQLException e) {
             e.printStackTrace();
