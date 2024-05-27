@@ -1,27 +1,30 @@
 package modelos;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class Servicio {
     private int codSer;
     private String nomSer;
+    private LocalDate diaSer;
     private LocalDateTime inicioSer;
     private LocalDateTime finSer;
-    private boolean puedePerro;
-    private boolean puedeGato;
-    private boolean puedeAve;
-    private boolean puedeRoedor;
-    private boolean puedeReptil;
+    private int puedePerro;
+    private int puedeGato;
+    private int puedeAve;
+    private int puedeRoedor;
+    private int puedeReptil;
     private int precioPerro;
     private int precioGato;
     private int precioAve;
     private int precioRoedor;
     private int precioReptil;
 
-    public Servicio(int codSer, String nomSer, LocalDateTime inicioSer, LocalDateTime finSer, 
-    		boolean puedePerro, boolean puedeGato, boolean puedeAve, boolean puedeRoedor, 
-    		boolean puedeReptil, int precioPerro, int precioGato, int precioAve, int precioRoedor, int precioReptil) {
+    public Servicio(int codSer, String nomSer, LocalDate diaSer, LocalDateTime inicioSer, LocalDateTime finSer, 
+    		int puedePerro, int puedeGato, int puedeAve, int puedeRoedor, 
+    		int puedeReptil, int precioPerro, int precioGato, int precioAve, int precioRoedor, int precioReptil) {
         this.codSer = codSer;
         this.nomSer = nomSer;
+        this.diaSer = diaSer;
         this.inicioSer = inicioSer;
         this.finSer = finSer;
         this.puedePerro = puedePerro;
@@ -51,8 +54,16 @@ public class Servicio {
     public void setNomSer(String nomSer) {
         this.nomSer = nomSer;
     }
+    
+    public LocalDate getDiaSer() {
+		return diaSer;
+	}
 
-    public LocalDateTime getInicioSer() {
+	public void setDiaSer(LocalDate diaSer) {
+		this.diaSer = diaSer;
+	}
+
+	public LocalDateTime getInicioSer() {
         return inicioSer;
     }
 
@@ -68,47 +79,47 @@ public class Servicio {
         this.finSer = finSer;
     }
 
-    public boolean isPuedePerro() {
-        return puedePerro;
-    }
+    public int getPuedePerro() {
+		return puedePerro;
+	}
 
-    public void setPuedePerro(boolean puedePerro) {
-        this.puedePerro = puedePerro;
-    }
+	public void setPuedePerro(int puedePerro) {
+		this.puedePerro = puedePerro;
+	}
 
-    public boolean isPuedeGato() {
-        return puedeGato;
-    }
+	public int getPuedeGato() {
+		return puedeGato;
+	}
 
-    public void setPuedeGato(boolean puedeGato) {
-        this.puedeGato = puedeGato;
-    }
+	public void setPuedeGato(int puedeGato) {
+		this.puedeGato = puedeGato;
+	}
 
-    public boolean isPuedeAve() {
-        return puedeAve;
-    }
+	public int getPuedeAve() {
+		return puedeAve;
+	}
 
-    public void setPuedeAve(boolean puedeAve) {
-        this.puedeAve = puedeAve;
-    }
+	public void setPuedeAve(int puedeAve) {
+		this.puedeAve = puedeAve;
+	}
 
-    public boolean isPuedeRoedor() {
-        return puedeRoedor;
-    }
+	public int getPuedeRoedor() {
+		return puedeRoedor;
+	}
 
-    public void setPuedeRoedor(boolean puedeRoedor) {
-        this.puedeRoedor = puedeRoedor;
-    }
+	public void setPuedeRoedor(int puedeRoedor) {
+		this.puedeRoedor = puedeRoedor;
+	}
 
-    public boolean isPuedeReptil() {
-        return puedeReptil;
-    }
+	public int getPuedeReptil() {
+		return puedeReptil;
+	}
 
-    public void setPuedeReptil(boolean puedeReptil) {
-        this.puedeReptil = puedeReptil;
-    }
+	public void setPuedeReptil(int puedeReptil) {
+		this.puedeReptil = puedeReptil;
+	}
 
-    public int getPrecioPerro() {
+	public int getPrecioPerro() {
         return precioPerro;
     }
 

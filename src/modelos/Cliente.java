@@ -4,7 +4,7 @@ import java.util.LinkedList;
 public class Cliente extends Usuario {
     private String dirCli;
 
-    public Cliente(int codUsu, String nomUsu, String mailUsu, String telUsu, String dirCli) {
+    public Cliente(int codUsu, String nomUsu, String mailUsu, String dirCli, String telUsu) {
         super(codUsu, nomUsu, mailUsu, telUsu);
         this.dirCli = dirCli;
     }

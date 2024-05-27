@@ -18,18 +18,14 @@ public class Main {
 		LinkedList<Servicio> serviciosDados = new LinkedList<Servicio>();
 		boolean irse1 = false, irseCliente = false, irseEmpleado = false, irseGerente = false;
 
-		Cliente cliente1 = new Cliente(100001, "LucasPanca", "lucasPanga@gmail.com", 1157743897, "Chacabuco 2356");
-		Cliente cliente2 = new Cliente(100002, "MariaEngona", "mariaEngona@gmail.com", 1128890401,
-				"Juan B Justo 4511 c");
+		Cliente cliente1 = new Cliente(100001, "LucasPanca", "lucasPanga@gmail.com", "Chacabuco 2356", "1157743897");
+		Cliente cliente2 = new Cliente(100002, "MariaEngona", "mariaEngona@gmail.com", "Juan B Justo 4511 c", "1128890401");
 
-		Empleado empleado1 = new Empleado(1001, "OscarHono", "oscarHono@guarda.com", 1167891234,
-				LocalDate.now().minusYears(10), "NO DATA", 5);
-		Empleado empleado2 = new Empleado(1002, "JuanaDominguez", "juanaDominguez@guarda.com", 1159970322,
-				LocalDate.now().minusYears(5), "NO DATA", 4);
-		Empleado empleado3 = new Empleado(1003, "LorenaPassione", "lorenaPassione@guarda.com", 1184431699,
-				LocalDate.now().minusYears(7), "NO DATA", 4);
+		Empleado empleado1 = new Empleado(1001, "OscarHono", "oscarHono@guarda.com", "1167891234", LocalDate.now().minusYears(10), "NO DATA", 5);
+		Empleado empleado2 = new Empleado(1002, "JuanaDominguez", "juanaDominguez@guarda.com", "1159970322", LocalDate.now().minusYears(5), "NO DATA", 4);
+		Empleado empleado3 = new Empleado(1003, "LorenaPassione", "lorenaPassione@guarda.com", "1184431699", LocalDate.now().minusYears(7), "NO DATA", 4);
 
-		Gerente gerente = new Gerente(101, "GerardoCorral", "gerardoCorral@guarda2.com", 1167339888);
+		Gerente gerente = new Gerente(101, "GerardoCorral", "gerardoCorral@guarda2.com", "1167339888");
 
 		cuentasCreadas.add(cliente1);
 		cuentasCreadas.add(cliente2);
@@ -38,11 +34,11 @@ public class Main {
 		cuentasCreadas.add(empleado3);
 		cuentasCreadas.add(gerente);
 
-		Mascota mascota1 = new Mascota(200001, "Miguel", "Perro", "Labrador", 5, true, "Amistosa", "NO", true, 0);
-		Mascota mascota2 = new Mascota(200002, "Canoso", "Gato", "Persia", 3, true, "Juguetona", "SI", true, 0);
-		Mascota mascota3 = new Mascota(200003, "Stitch", "Ave", "Loro", 2, true, "Agresiva", "NO", true, 0);
-		Mascota mascota4 = new Mascota(200004, "Mickey", "Roedor", "Hamster", 1, true, "Amistosa", "SI", false, 0);
-		Mascota mascota5 = new Mascota(200005, "Adan", "Reptil", "Serpiente", 4, true, "Agresiva", "NO", false, 0);
+		Mascota mascota1 = new Mascota(200001, "Miguel", "Perro", "Labrador", 5, 1, "Amistosa", 0, 1, 0);
+		Mascota mascota2 = new Mascota(200002, "Canoso", "Gato", "Persia", 3, 1, "Juguetona", 1, 1, 0);
+		Mascota mascota3 = new Mascota(200003, "Stitch", "Ave", "Loro", 2, 0, "Agresiva", 0, 0, 0);
+		Mascota mascota4 = new Mascota(200004, "Mickey", "Roedor", "Hamster", 1, 0, "Amistosa", 1, 0, 0);
+		Mascota mascota5 = new Mascota(200005, "Adan", "Reptil", "Serpiente", 4, 1, "Agresiva", 0, 0, 0);
 
 		mascotasRegistradas.add(mascota1);
 		mascotasRegistradas.add(mascota2);
@@ -50,12 +46,12 @@ public class Main {
 		mascotasRegistradas.add(mascota4);
 		mascotasRegistradas.add(mascota5);
 
-		Servicio servicio1 = new Servicio(301, "Corte de Pelo", LocalDateTime.now(), LocalDateTime.now().plusHours(1),
-				true, false, false, false, false, 20, 0, 0, 0, 0);
-		Servicio servicio2 = new Servicio(302, "Paseo", LocalDateTime.now(), LocalDateTime.now().plusHours(2), true,
-				true, true, true, true, 15, 15, 15, 15, 15);
-		Servicio servicio3 = new Servicio(303, "Estancia", LocalDateTime.now(), LocalDateTime.now().plusHours(3), true,
-				true, true, true, true, 25, 20, 20, 20, 20);
+		Servicio servicio1 = new Servicio(301, "Corte de Pelo", LocalDate.now().minusDays(1), LocalDateTime.now(), LocalDateTime.now().plusHours(1),
+				1, 0, 0, 0, 0, 20, 0, 0, 0, 0);
+		Servicio servicio2 = new Servicio(302, "Paseo", LocalDate.now().plusDays(4), LocalDateTime.now(), LocalDateTime.now().plusHours(2), 1,
+				1, 1, 1, 1, 15, 15, 15, 15, 15);
+		Servicio servicio3 = new Servicio(303, "Estancia", LocalDate.now().plusDays(10), LocalDateTime.now(), LocalDateTime.now().plusHours(3), 1,
+				1, 1, 1, 1, 25, 20, 20, 20, 20);
 
 		serviciosDados.add(servicio1);
 		serviciosDados.add(servicio2);
@@ -198,8 +194,7 @@ public class Main {
 			case 1:
 				String nuevoNombre = JOptionPane.showInputDialog(null, "Ingrese su nombre:");
 				String nuevoCorreo = JOptionPane.showInputDialog(null, "Ingrese su correo electrónico:");
-				double nuevoTelefono = Double
-						.parseDouble(JOptionPane.showInputDialog(null, "Ingrese su número de teléfono:"));
+				String nuevoTelefono = JOptionPane.showInputDialog(null, "Ingrese su número de teléfono:");
 				String nuevaDireccion = JOptionPane.showInputDialog(null, "Ingrese su dirección:");
 
 				int nuevoCodigo = 100000;

@@ -9,14 +9,14 @@ public class Mascota {
     private String variMas;
     private String tipoMas;
     private int edadMas;
-    private boolean vacuMas;
+    private int vacuMas;
     private String caracterMas;
-    private String dietMas;
-    private boolean chipMas;
+    private int dietMas;
+    private int chipMas;
     private int adoptar;
 
-    public Mascota(int codMas, String nomMas, String variMas, String tipoMas, int edadMas, boolean vacuMas,
-                   String caracterMas, String dietMas, boolean chipMas, int adoptar) {
+    public Mascota(int codMas, String nomMas, String variMas, String tipoMas, int edadMas, int vacuMas,
+                   String caracterMas, int dietMas, int chipMas, int adoptar) {
         this.codMas = codMas;
         this.nomMas = nomMas;
         this.variMas = variMas;
@@ -69,15 +69,15 @@ public class Mascota {
         this.edadMas = edadMas;
     }
 
-    public boolean isVacuMas() {
-        return vacuMas;
-    }
+    public int getVacuMas() {
+		return vacuMas;
+	}
 
-    public void setVacuMas(boolean vacuMas) {
-        this.vacuMas = vacuMas;
-    }
+	public void setVacuMas(int vacuMas) {
+		this.vacuMas = vacuMas;
+	}
 
-    public String getCaracterMas() {
+	public String getCaracterMas() {
         return caracterMas;
     }
 
@@ -85,21 +85,21 @@ public class Mascota {
         this.caracterMas = caracterMas;
     }
 
-    public String getDietMas() {
-        return dietMas;
-    }
+    public int getDietMas() {
+		return dietMas;
+	}
 
-    public void setDietMas(String dietMas) {
-        this.dietMas = dietMas;
-    }
+	public void setDietMas(int dietMas) {
+		this.dietMas = dietMas;
+	}
 
-    public boolean isChipMas() {
-        return chipMas;
-    }
+	public int getChipMas() {
+		return chipMas;
+	}
 
-    public void setChipMas(boolean chipMas) {
-        this.chipMas = chipMas;
-    }
+	public void setChipMas(int chipMas) {
+		this.chipMas = chipMas;
+	}
 
 	public int getAdoptar() {
 		return adoptar;
@@ -121,12 +121,10 @@ public class Mascota {
 	        String variMas = JOptionPane.showInputDialog(null, "Ingrese la variante de la mascota (perro, gato, ave, roedor, reptil):");
 	        String tipoMas = JOptionPane.showInputDialog(null, "Ingrese el tipo de mascota (labrador, persia, etc.):");
 	        int edadMas = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese la edad de la mascota:"));
-	        boolean vacuMas = JOptionPane.showInputDialog(null, "¿La mascota está vacunada? (true/false):")
-	                .equalsIgnoreCase("true");
+	        int vacuMas = Integer.parseInt(JOptionPane.showInputDialog(null, "¿La mascota está vacunada? (1/0):"));
 	        String caracterMas = JOptionPane.showInputDialog(null, "Ingrese el carácter de la mascota (Amistosa, Juguetona, Agresiva):");
-	        String dietMas = JOptionPane.showInputDialog(null, "Ingrese la dieta de la mascota (si no tiene, escriba NO):");
-	        boolean chipMas = JOptionPane.showInputDialog(null, "¿La mascota tiene chip? (true/false):")
-	                .equalsIgnoreCase("true");
+	        int dietMas = Integer.parseInt(JOptionPane.showInputDialog(null, "la mascota está en dieta? (1/0):"));
+	        int chipMas = Integer.parseInt(JOptionPane.showInputDialog(null, "¿La mascota tiene chip? (true/false):"));
 	
 	        return new Mascota(nuevoCodigoMascota, nomMas, variMas, tipoMas, edadMas, vacuMas, caracterMas, dietMas, chipMas, codUsuActual);
 	    }
