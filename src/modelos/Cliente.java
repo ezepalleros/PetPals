@@ -1,5 +1,5 @@
 package modelos;
-import java.util.LinkedList;
+import javax.swing.JOptionPane;
 
 public class Cliente extends Usuario {
     private String dirCli;
@@ -17,20 +17,34 @@ public class Cliente extends Usuario {
         this.dirCli = dirCli;
     }
     
-    public boolean esCliente() {
-        return true;
+    public int iniciarSesionCliente(String nombre, String mail) {
+        if (nombre.length() >= 8 && mail.length() >= 8) {
+            if (this.getMailUsu().equals(mail)) {
+                if (this.getNomUsu().equals(nombre)) {
+                    return 1;
+                } else {
+                    JOptionPane.showMessageDialog(null, "Error: El nombre proporcionado no coincide.");
+                    return 0;
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Error: El correo electrónico proporcionado no coincide.");
+                return 0;
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Error: El nombre y el correo electrónico deben tener al menos 8 caracteres.");
+            return 0;
+        }
     }
 
-    public boolean esEmpleado() {
-        return false;
+
+    @Override
+    protected int iniciarSesionEmpleado(String nombre, String mail) {
+        return 0;
     }
 
-    public boolean esGerente() {
-        return false;
+    @Override
+    protected int iniciarSesionGerente(String nombre, String mail) {
+        return 0;
     }
 
-	public boolean IniciarSesion(String string, String string2) {
-		// TODO Auto-generated method stub
-		return false;
-	}
 }

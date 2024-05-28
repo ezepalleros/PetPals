@@ -46,10 +46,6 @@ public abstract class Usuario {
         this.telUsu = telUsu;
     }
     
-    public abstract boolean esCliente();
-    public abstract boolean esEmpleado();
-    public abstract boolean esGerente();
-    
     public boolean validarCredenciales(String correo, String codigo, List<Usuario> cuentasCreadas) {
         for (Usuario cuenta : cuentasCreadas) {
             if (this.mailUsu.equals(correo) && String.valueOf(this.codUsu).equals(codigo)) {
@@ -58,5 +54,22 @@ public abstract class Usuario {
         }
         return false;
     }
+    
+    public int iniciarSesion(String nombre, String mail) {
+        if (mail.endsWith("@guarda")) {
+            return iniciarSesionEmpleado(nombre, mail);
+        } else if (mail.endsWith("@guarda2.com")) {
+            return iniciarSesionGerente(nombre, mail);
+        } else {
+            return iniciarSesionCliente(nombre, mail);
+        }
+    }
+
+    protected abstract int iniciarSesionEmpleado(String nombre, String mail);
+
+    protected abstract int iniciarSesionGerente(String nombre, String mail);
+
+    protected abstract int iniciarSesionCliente(String nombre, String mail);
+
 
 }

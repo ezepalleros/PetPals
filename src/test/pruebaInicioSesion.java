@@ -16,7 +16,7 @@ public class pruebaInicioSesion {
   ClienteControlador controlador = new ClienteControlador();
   boolean flag=false;
   for (Cliente cliente : controlador.getAllClients()) {
-   if (cliente.IniciarSesion("LucasPanga", "lucasPanga@gmail.com")) {
+   if (cliente.iniciarSesionCliente("LucasPanga", "lucasPanga@gmail.com") == 1) {
     flag =true;
     break;
    } 
@@ -29,7 +29,7 @@ public class pruebaInicioSesion {
   ClienteControlador controlador = new ClienteControlador();
   boolean flag=false;
   for (Cliente cliente : controlador.getAllClients()) {
-   if (cliente.IniciarSesion("Papapapapa", "lucasPanga@gmail.com")) {
+   if (cliente.iniciarSesionCliente("Papapapapa", "lucasPanga@gmail.com") == 0) {
     flag =true;
     break;
    } 
