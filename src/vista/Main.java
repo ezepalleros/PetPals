@@ -77,9 +77,20 @@ public class Main {
 	            }
 	            break;
 
-	            case 1:
-	                // Implementar lógica para el registro de un nuevo cliente
-	                break;
+	        case 1:
+	            String nuevoNombre = JOptionPane.showInputDialog(null, "Ingrese su nombre:");
+	            String nuevoCorreo = JOptionPane.showInputDialog(null, "Ingrese su correo electrónico:");
+	            String nuevaDireccion = JOptionPane.showInputDialog(null, "Ingrese su dirección:");
+	            String nuevoTelefono = JOptionPane.showInputDialog(null, "Ingrese su número de teléfono:");
+
+	            if (nuevoNombre != null && nuevoCorreo != null && nuevaDireccion != null && nuevoTelefono != null) {
+	                Cliente nuevoCliente = new Cliente(0, nuevoNombre, nuevoCorreo, nuevaDireccion, nuevoTelefono);
+	                clienteControlador.addClient(nuevoCliente);
+	            } else {
+	                JOptionPane.showMessageDialog(null, "Error: Uno o más campos están vacíos.");
+	            }
+	            break;
+
 	            case 2:
 	                irse1 = true;
 	                break;

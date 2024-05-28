@@ -11,6 +11,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
 import interfaces.ClienteRepository;
 import modelos.Cliente;
 
@@ -57,23 +59,44 @@ public class ClienteControlador implements ClienteRepository {
     }
     
 	@Override
-    public void addClient(Cliente cliente) {
-        try {
-            PreparedStatement statement = connection.prepareStatement("INSERT INTO cliente (nomCli, mailCli, dirCli, numCli) VALUES (?, ?, ?, ?)");
-            statement.setString(1, cliente.getNomUsu());
-            statement.setString(2, cliente.getMailUsu());
-            statement.setString(3, cliente.getDirCli());
-            statement.setString(4, cliente.getTelUsu());
+	public void addClient(Cliente cliente) {
+	    if (cliente.getNomUsu().length() > 20) {
+	        JOptionPane.showMessageDialog(null, "Error: El nombre debe tener como máximo 20 caracteres.");
+	        return;
+	    }
 
-            
-            int rowsInserted = statement.executeUpdate();
-            if (rowsInserted > 0) {
-                System.out.println("Cliente insertado exitosamente");
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
+	    if (cliente.getMailUsu().length() < 8 || !cliente.getMailUsu().endsWith("@gmail.com")) {
+	    	JOptionPane.showMessageDialog(null, "Error: El correo electrónico debe tener al menos 8 caracteres y terminar con '@gmail.com'.");
+	        return;
+	    }
+
+	    if (cliente.getDirCli().length() > 30) {
+	    	JOptionPane.showMessageDialog(null, "Error: La dirección debe tener como máximo 30 caracteres.");
+	        return;
+	    }
+
+	    if (cliente.getTelUsu().length() != 12) {
+	    	JOptionPane.showMessageDialog(null, "Error: El número de teléfono debe tener exactamente 12 caracteres.");
+	        return;
+	    }
+
+	    try {
+	        PreparedStatement statement = connection.prepareStatement("INSERT INTO cliente (nomCli, mailCli, dirCli, numCli) VALUES (?, ?, ?, ?)");
+	        statement.setString(1, cliente.getNomUsu());
+	        statement.setString(2, cliente.getMailUsu());
+	        statement.setString(3, cliente.getDirCli());
+	        statement.setString(4, cliente.getTelUsu());
+
+	        int rowsInserted = statement.executeUpdate();
+	        if (rowsInserted > 0) {
+	        	JOptionPane.showMessageDialog(null, "Cliente insertado exitosamente");
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	}
+
+
 
 	@Override
     public void updateClient(Cliente cliente) {
@@ -107,5 +130,5 @@ public class ClienteControlador implements ClienteRepository {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-    }
+    }  
 }
