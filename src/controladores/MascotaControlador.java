@@ -1,7 +1,7 @@
-
 package controladores;
 
 import java.sql.Connection;
+
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -20,10 +20,10 @@ public class MascotaControlador implements MascotaRepository {
     }
 
     @Override
-    public List<Mascota> getAllUsers() {
+    public List<Mascota> getAllPets() {
         List<Mascota> mascotas = new ArrayList<>();
         try {
-            PreparedStatement statement = connection.prepareStatement("SELECT * FROM users ");
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM mascota ");
             ResultSet resultSet = statement.executeQuery();
        
             while (resultSet.next()) {
@@ -37,10 +37,10 @@ public class MascotaControlador implements MascotaRepository {
     }
 
     @Override
-    public Mascota getUserById(int id) {
+    public Mascota getPetById(int id) {
     	Mascota mascotas = null;
         try {
-            PreparedStatement statement = connection.prepareStatement("SELECT * FROM users WHERE id = ?");
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM mascota WHERE codMas = ?");
             statement.setInt(1, id);
             
             ResultSet resultSet = statement.executeQuery();
@@ -55,9 +55,9 @@ public class MascotaControlador implements MascotaRepository {
     }
     
 	@Override
-    public void addUser(Mascota mascota) {
+    public void addPet(Mascota mascota) {
         try {
-            PreparedStatement statement = connection.prepareStatement("INSERT INTO users (nomMas, variMas, tipoMas, edadMas, vacuMas, caracterMas, dietMas, chipMas, adoptar) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+            PreparedStatement statement = connection.prepareStatement("INSERT INTO mascota (nomMas, variMas, tipoMas, edadMas, vacuMas, caracterMas, dietMas, chipMas, adoptar) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
             statement.setString(1, mascota.getNomMas());
             statement.setString(2, mascota.getVariMas());
             statement.setString(3, mascota.getTipoMas());
@@ -70,7 +70,7 @@ public class MascotaControlador implements MascotaRepository {
             
             int rowsInserted = statement.executeUpdate();
             if (rowsInserted > 0) {
-                System.out.println("Usuario insertado exitosamente");
+                System.out.println("Mascota insertada exitosamente");
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -78,9 +78,9 @@ public class MascotaControlador implements MascotaRepository {
     }
 
 	@Override
-    public void updateUser(Mascota mascota) {
+    public void updatePet(Mascota mascota) {
         try {
-            PreparedStatement statement = connection.prepareStatement("UPDATE users SET nomMas = ?, variMas = ?, tipoMas = ?, edadMas = ?, vacuMas = ?, caracterMas = ?, dietMas = ?, chipMas = ?, adoptar = ? WHERE codMas = ?");
+            PreparedStatement statement = connection.prepareStatement("UPDATE mascota SET nomMas = ?, variMas = ?, tipoMas = ?, edadMas = ?, vacuMas = ?, caracterMas = ?, dietMas = ?, chipMas = ?, adoptar = ? WHERE codMas = ?");
             statement.setString(1, mascota.getNomMas());
             statement.setString(2, mascota.getVariMas());
             statement.setString(3, mascota.getTipoMas());
@@ -93,7 +93,7 @@ public class MascotaControlador implements MascotaRepository {
             
             int rowsUpdated = statement.executeUpdate();
             if (rowsUpdated > 0) {
-                System.out.println("Usuario actualizado exitosamente");
+                System.out.println("Mascota actualizada exitosamente");
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -101,14 +101,14 @@ public class MascotaControlador implements MascotaRepository {
     }
 
     @Override
-    public void deleteUser(int id) {
+    public void deletePet(int id) {
         try {
-            PreparedStatement statement = connection.prepareStatement("DELETE FROM users WHERE codMas = ?");
+            PreparedStatement statement = connection.prepareStatement("DELETE FROM mascota WHERE codMas = ?");
             statement.setInt(1, id);
             
             int rowsDeleted = statement.executeUpdate();
             if (rowsDeleted > 0) {
-                System.out.println("Usuario eliminado exitosamente");
+                System.out.println("Mascota eliminada exitosamente");
             }
         } catch (SQLException e) {
             e.printStackTrace();

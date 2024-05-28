@@ -5,13 +5,13 @@ import java.util.List;
 import modelos.Cliente;
 
 public interface ClienteRepository {
-    List<Cliente> getAllUsers(); // llama a todos los usuarios de la bdd
+    List<Cliente> getAllClients(); // llama a todos los usuarios de la bdd
     
-    Cliente getUserById(int id); //llama solo a uno, por su id
+    Cliente getClientById(int id); //llama solo a uno, por su id
     
-    void addUser(Cliente user); //añade usuarios a la bdd
+    void addClient(Cliente cliente); //añade usuarios a la bdd
     
-    void updateUser(Cliente user); //actualiza los usuarios de la bdd
+    void updateClient(Cliente cliente); //actualiza los usuarios de la bdd
     
-    void deleteUser(int id); //eliminar usuarios de la bdd
+    void deleteClient(int id); //eliminar usuarios de la bdd
 }

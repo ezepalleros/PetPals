@@ -15,7 +15,7 @@ public class pruebaInicioSesion {
  public void PruebaIniciarSesionV() {
   ClienteControlador controlador = new ClienteControlador();
   boolean flag=false;
-  for (Cliente cliente : controlador.getAllUsers()) {
+  for (Cliente cliente : controlador.getAllClients()) {
    if (cliente.IniciarSesion("LucasPanga", "lucasPanga@gmail.com")) {
     flag =true;
     break;
@@ -28,7 +28,7 @@ public class pruebaInicioSesion {
  public void PruebaIniciarSesionF() {
   ClienteControlador controlador = new ClienteControlador();
   boolean flag=false;
-  for (Cliente cliente : controlador.getAllUsers()) {
+  for (Cliente cliente : controlador.getAllClients()) {
    if (cliente.IniciarSesion("Papapapapa", "lucasPanga@gmail.com")) {
     flag =true;
     break;

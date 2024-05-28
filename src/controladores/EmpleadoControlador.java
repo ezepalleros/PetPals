@@ -1,4 +1,3 @@
-
 package controladores;
 
 import java.sql.Connection;
@@ -21,10 +20,10 @@ public class EmpleadoControlador implements EmpleadoRepository {
     }
 
     @Override
-    public List<Empleado> getAllUsers() {
+    public List<Empleado> getAllEmployees() {
         List<Empleado> empleados = new ArrayList<>();
         try {
-            PreparedStatement statement = connection.prepareStatement("SELECT * FROM users ");
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM empleado ");
             ResultSet resultSet = statement.executeQuery();
        
             while (resultSet.next()) {
@@ -38,10 +37,10 @@ public class EmpleadoControlador implements EmpleadoRepository {
     }
 
     @Override
-    public Empleado getUserById(int id) {
+    public Empleado getEmployeeById(int id) {
     	Empleado empleados = null;
         try {
-            PreparedStatement statement = connection.prepareStatement("SELECT * FROM users WHERE id = ?");
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM empleado WHERE codEmp = ?");
             statement.setInt(1, id);
             
             ResultSet resultSet = statement.executeQuery();
@@ -56,9 +55,9 @@ public class EmpleadoControlador implements EmpleadoRepository {
     }
     
 	@Override
-    public void addUser(Empleado empleado) {
+    public void addEmployee(Empleado empleado) {
         try {
-            PreparedStatement statement = connection.prepareStatement("INSERT INTO users (nomEmp, mailEmp, telEmp, antiEmp, detallEmp, califEmp) VALUES (?, ?, ?, ?, ?, ?)");
+            PreparedStatement statement = connection.prepareStatement("INSERT INTO empleado (nomEmp, mailEmp, telEmp, antiEmp, detallEmp, califEmp) VALUES (?, ?, ?, ?, ?, ?)");
             statement.setString(1, empleado.getNomUsu());
             statement.setString(2, empleado.getMailUsu());
             statement.setString(3, empleado.getTelUsu());
@@ -68,7 +67,7 @@ public class EmpleadoControlador implements EmpleadoRepository {
             
             int rowsInserted = statement.executeUpdate();
             if (rowsInserted > 0) {
-                System.out.println("Usuario insertado exitosamente");
+                System.out.println("Empleado insertado exitosamente");
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -76,9 +75,9 @@ public class EmpleadoControlador implements EmpleadoRepository {
     }
 
 	@Override
-    public void updateUser(Empleado empleado) {
+    public void updateEmployee(Empleado empleado) {
         try {
-            PreparedStatement statement = connection.prepareStatement("UPDATE users SET nomEmp = ?, mailEmp = ?, telEmp = ?, antiEmp = ?, detallEmp = ?, califEmp = ? WHERE codEmp = ?");
+            PreparedStatement statement = connection.prepareStatement("UPDATE empleado SET nomEmp = ?, mailEmp = ?, telEmp = ?, antiEmp = ?, detallEmp = ?, califEmp = ? WHERE codEmp = ?");
             statement.setString(1, empleado.getNomUsu());
             statement.setString(2, empleado.getMailUsu());
             statement.setString(3, empleado.getTelUsu());
@@ -88,7 +87,7 @@ public class EmpleadoControlador implements EmpleadoRepository {
             
             int rowsUpdated = statement.executeUpdate();
             if (rowsUpdated > 0) {
-                System.out.println("Usuario actualizado exitosamente");
+                System.out.println("Empleado actualizado exitosamente");
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -96,14 +95,14 @@ public class EmpleadoControlador implements EmpleadoRepository {
     }
 
     @Override
-    public void deleteUser(int id) {
+    public void deleteEmployee(int id) {
         try {
-            PreparedStatement statement = connection.prepareStatement("DELETE FROM users WHERE codEmp = ?");
+            PreparedStatement statement = connection.prepareStatement("DELETE FROM empleado WHERE codEmp = ?");
             statement.setInt(1, id);
             
             int rowsDeleted = statement.executeUpdate();
             if (rowsDeleted > 0) {
-                System.out.println("Usuario eliminado exitosamente");
+                System.out.println("Empleado eliminado exitosamente");
             }
         } catch (SQLException e) {
             e.printStackTrace();

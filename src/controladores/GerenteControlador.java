@@ -1,10 +1,6 @@
-
 package controladores;
 
 import java.sql.Connection;
-
-
-
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -13,7 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import interfaces.GerenteRepository;
-import modelos.Cliente;
 import modelos.Gerente;
 
 public class GerenteControlador implements GerenteRepository {
@@ -24,10 +19,10 @@ public class GerenteControlador implements GerenteRepository {
     }
 
     @Override
-    public List<Gerente> getAllUsers() {
+    public List<Gerente> getAllManagers() {
         List<Gerente> gerentes = new ArrayList<>();
         try {
-            PreparedStatement statement = connection.prepareStatement("SELECT * FROM users ");
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM gerente ");
             ResultSet resultSet = statement.executeQuery();
        
             while (resultSet.next()) {
@@ -41,10 +36,10 @@ public class GerenteControlador implements GerenteRepository {
     }
 
     @Override
-    public Gerente getUserById(int id) {
+    public Gerente getManagerById(int id) {
     	Gerente gerentes = null;
         try {
-            PreparedStatement statement = connection.prepareStatement("SELECT * FROM users WHERE codGer = ?");
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM gerente WHERE codGer = ?");
             statement.setInt(1, id);
             
             ResultSet resultSet = statement.executeQuery();
@@ -59,16 +54,16 @@ public class GerenteControlador implements GerenteRepository {
     }
     
 	@Override
-    public void addUser(Gerente gerente) {
+    public void addManager(Gerente gerente) {
         try {
-            PreparedStatement statement = connection.prepareStatement("INSERT INTO users (name, email, number) VALUES (?, ?, ?)");
+            PreparedStatement statement = connection.prepareStatement("INSERT INTO gerente (nomGer, mailGer, numGer) VALUES (?, ?, ?)");
             statement.setString(1, gerente.getNomUsu());
             statement.setString(2, gerente.getMailUsu());
             statement.setString(3, gerente.getTelUsu());
             
             int rowsInserted = statement.executeUpdate();
             if (rowsInserted > 0) {
-                System.out.println("Usuario insertado exitosamente");
+                System.out.println("Gerente insertado exitosamente");
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -76,16 +71,16 @@ public class GerenteControlador implements GerenteRepository {
     }
 
 	@Override
-    public void updateUser(Gerente gerente) {
+    public void updateManager(Gerente gerente) {
         try {
-            PreparedStatement statement = connection.prepareStatement("UPDATE users SET name = ?, email = ?, number = ? WHERE id = ?");
+            PreparedStatement statement = connection.prepareStatement("UPDATE gerente SET nomGer = ?, mailGer = ?, numGer = ? WHERE codGer = ?");
             statement.setString(1, gerente.getNomUsu());
             statement.setString(2, gerente.getMailUsu());
             statement.setString(3, gerente.getTelUsu());
             
             int rowsUpdated = statement.executeUpdate();
             if (rowsUpdated > 0) {
-                System.out.println("Usuario actualizado exitosamente");
+                System.out.println("Gerente actualizado exitosamente");
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -93,14 +88,14 @@ public class GerenteControlador implements GerenteRepository {
     }
 
     @Override
-    public void deleteUser(int id) {
+    public void deleteManager(int id) {
         try {
-            PreparedStatement statement = connection.prepareStatement("DELETE FROM users WHERE id = ?");
+            PreparedStatement statement = connection.prepareStatement("DELETE FROM gerente WHERE codGer = ?");
             statement.setInt(1, id);
             
             int rowsDeleted = statement.executeUpdate();
             if (rowsDeleted > 0) {
-                System.out.println("Usuario eliminado exitosamente");
+                System.out.println("Gerente eliminado exitosamente");
             }
         } catch (SQLException e) {
             e.printStackTrace();
