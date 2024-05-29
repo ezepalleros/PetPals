@@ -149,17 +149,16 @@ public class Main {
                                         int seleccionEmpleadoIndex = JOptionPane.showOptionDialog(null, "Seleccione un empleado", "Empleados",
                                                 JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opcionesEmpleados, opcionesEmpleados[0]);
                                         Empleado empleadoSeleccionado = empleados.get(seleccionEmpleadoIndex);
-
+                                        
+                                        
+                                        clienteControlador.fechaActual(fechaActual);
                                         clienteControlador.solicitarServicio(codigoCliente, servicioSeleccionado.getCodSer(), diaDeseado, mascotaSeleccionada.getCodMas(), empleadoSeleccionado.getCodUsu());
                                     } else {
                                         JOptionPane.showMessageDialog(null, "Error: Código de cliente no válido.");
                                     }
                                     break;
 
-
-
-
-                                    case 2:
+                                	case 2:
                                         if (codigoCliente != 0) {
                                             List<Mascota> mascotasCliente = new ArrayList<>();
 

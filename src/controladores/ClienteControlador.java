@@ -122,7 +122,7 @@ public class ClienteControlador implements ClienteRepository {
         }
     }
 
-    @Override
+	@Override
     public void deleteClient(int id) {
         try {
             PreparedStatement statement = connection.prepareStatement("DELETE FROM cliente WHERE codCli = ?");
@@ -137,6 +137,7 @@ public class ClienteControlador implements ClienteRepository {
         }
     }
     
+	
     public void solicitarServicio(int clienteId, int codServicio, LocalDate diaDeseado, int idMascota, int idEmpleado) {
         Servicio servicioSeleccionado = null;
         for (Servicio servicio : servicioControlador.getAllServices()) {
@@ -153,33 +154,31 @@ public class ClienteControlador implements ClienteRepository {
             }
         }
         
-        String puedeMascota = null;
-        
-        if (servicioSeleccionado.getPuedePerro() == 1) {
-        	puedeMascota += "Perro ";
-		}
-        if (servicioSeleccionado.getPuedeGato() == 1) {
-        	puedeMascota += "Gato ";
-		}
-        if (servicioSeleccionado.getPuedeAve() == 1) {
-        	puedeMascota += "Ave ";
-		}
-        if (servicioSeleccionado.getPuedeRoedor() == 1) {
-        	puedeMascota += "Roedor ";
-		}
-        if (servicioSeleccionado.getPuedeReptil() == 1) {
-        	puedeMascota += "Reptil ";
-		}
+        String variedadMascota = mascotaSeleccionada.getVariMas();
+        boolean puedeRecibirServicio = false;
 
-        if (mascotaSeleccionada.getVariMas().contains(puedeMascota)) {
+        if (variedadMascota.equalsIgnoreCase("Perro") && servicioSeleccionado.getPuedePerro() == 1) {
+            puedeRecibirServicio = true;
+        } else if (variedadMascota.equalsIgnoreCase("Gato") && servicioSeleccionado.getPuedeGato() == 1) {
+            puedeRecibirServicio = true;
+        } else if (variedadMascota.equalsIgnoreCase("Ave") && servicioSeleccionado.getPuedeAve() == 1) {
+            puedeRecibirServicio = true;
+        } else if (variedadMascota.equalsIgnoreCase("Roedor") && servicioSeleccionado.getPuedeRoedor() == 1) {
+            puedeRecibirServicio = true;
+        } else if (variedadMascota.equalsIgnoreCase("Reptil") && servicioSeleccionado.getPuedeReptil() == 1) {
+            puedeRecibirServicio = true;
+        }
+
+        if (!puedeRecibirServicio) {
             JOptionPane.showMessageDialog(null, "Error: La mascota no puede recibir este servicio");
             return;
         }
-
+        
         if (diaDeseado.isBefore(diaActual) || diaDeseado.isAfter(servicioSeleccionado.getDiaSer())) {
             JOptionPane.showMessageDialog(null, "Error: El día deseado no puede ser en el pasado o después de la última fecha del servicio.");
             return;
         }
+
 
         JOptionPane.showMessageDialog(null, "Servicio solicitado exitosamente.");
     }
