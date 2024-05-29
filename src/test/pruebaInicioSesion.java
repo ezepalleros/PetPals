@@ -2,12 +2,10 @@ package test;
 
 import static org.junit.Assert.assertEquals;
 
+
 import org.junit.jupiter.api.Test;
 import controladores.ClienteControlador;
 import modelos.Cliente;
-import modelos.Empleado;
-import modelos.Gerente;
-import modelos.Mascota;
 
 public class pruebaInicioSesion {
 

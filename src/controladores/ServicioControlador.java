@@ -28,7 +28,7 @@ public class ServicioControlador implements ServicioRepository {
             ResultSet resultSet = statement.executeQuery();
        
             while (resultSet.next()) {
-            	Servicio servicio = new Servicio(resultSet.getInt("codSer"), resultSet.getString("nomSer"), resultSet.getDate("diaSer").toLocalDate(), resultSet.getTimestamp("inicioSer").toLocalDateTime(), resultSet.getTimestamp("finSer").toLocalDateTime(), resultSet.getInt("puedePerro"), resultSet.getInt("puedeGato"), resultSet.getInt("puedeAve"), resultSet.getInt("puedeRoedor"), resultSet.getInt("puedeReptil"), resultSet.getInt("precioPerro"), resultSet.getInt("precioGato"), resultSet.getInt("precioAve"), resultSet.getInt("precioRoedor"), resultSet.getInt("precioReptil"));
+            	Servicio servicio = new Servicio(resultSet.getInt("codSer"), resultSet.getString("nomSer"), resultSet.getDate("diaSer").toLocalDate(), resultSet.getTimestamp("horaIniSer").toLocalDateTime(), resultSet.getTimestamp("horaFinSer").toLocalDateTime(), resultSet.getInt("puedePerro"), resultSet.getInt("puedeGato"), resultSet.getInt("puedeAve"), resultSet.getInt("puedeRoedor"), resultSet.getInt("puedeReptil"), resultSet.getInt("precioPerro"), resultSet.getInt("precioGato"), resultSet.getInt("precioAve"), resultSet.getInt("precioRoedor"), resultSet.getInt("precioReptil"));
             	servicios.add(servicio);
             }
         } catch (SQLException e) {
@@ -47,7 +47,7 @@ public class ServicioControlador implements ServicioRepository {
             ResultSet resultSet = statement.executeQuery();
             
             if (resultSet.next()) {
-            	servicios = new Servicio(resultSet.getInt("codSer"), resultSet.getString("nomSer"), resultSet.getDate("diaSer").toLocalDate(), resultSet.getTimestamp("inicioSer").toLocalDateTime(), resultSet.getTimestamp("finSer").toLocalDateTime(), resultSet.getInt("puedePerro"), resultSet.getInt("puedeGato"), resultSet.getInt("puedeAve"), resultSet.getInt("puedeRoedor"), resultSet.getInt("puedeReptil"), resultSet.getInt("precioPerro"), resultSet.getInt("precioGato"), resultSet.getInt("precioAve"), resultSet.getInt("precioRoedor"), resultSet.getInt("precioReptil"));
+            	servicios = new Servicio(resultSet.getInt("codSer"), resultSet.getString("nomSer"), resultSet.getDate("diaSer").toLocalDate(), resultSet.getTimestamp("horaIniSer").toLocalDateTime(), resultSet.getTimestamp("horaFinSer").toLocalDateTime(), resultSet.getInt("puedePerro"), resultSet.getInt("puedeGato"), resultSet.getInt("puedeAve"), resultSet.getInt("puedeRoedor"), resultSet.getInt("puedeReptil"), resultSet.getInt("precioPerro"), resultSet.getInt("precioGato"), resultSet.getInt("precioAve"), resultSet.getInt("precioRoedor"), resultSet.getInt("precioReptil"));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -70,7 +70,7 @@ public class ServicioControlador implements ServicioRepository {
             return;
         }
 
-        LocalTime horaInicioServicio = servicio.getInicioSer().toLocalTime();
+        LocalTime horaInicioServicio = servicio.getHoraIniSer().toLocalTime();
         if (diaServicio.isEqual(diaActual) && horaInicioServicio.isBefore(horaActual)) {
         	JOptionPane.showMessageDialog(null,"Error: La hora de inicio del servicio debe ser en el futuro.");
             return;
@@ -80,7 +80,7 @@ public class ServicioControlador implements ServicioRepository {
             return;
         }
 
-        LocalTime horaFinServicio = servicio.getFinSer().toLocalTime();
+        LocalTime horaFinServicio = servicio.getHoraFinSer().toLocalTime();
         if (diaServicio.isEqual(diaActual) && horaFinServicio.isBefore(horaActual)) {
         	JOptionPane.showMessageDialog(null,"Error: La hora de fin del servicio debe ser en el futuro.");
             return;
@@ -115,8 +115,8 @@ public class ServicioControlador implements ServicioRepository {
             PreparedStatement statement = connection.prepareStatement("INSERT INTO servicio (nomSer, diaSer, horaIniSer, horaFinSer, puedePerro, puedeGato, puedeAve, puedeRoedor, puedeReptil, precioPerro, precioGato, precioAve, precioRoedor, precioReptil) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
             statement.setString(1, servicio.getNomSer());
             statement.setDate(2, Date.valueOf(servicio.getDiaSer()));
-            statement.setTimestamp(3, Timestamp.valueOf(servicio.getInicioSer()));
-            statement.setTimestamp(4, Timestamp.valueOf(servicio.getFinSer()));
+            statement.setTimestamp(3, Timestamp.valueOf(servicio.getHoraIniSer()));
+            statement.setTimestamp(4, Timestamp.valueOf(servicio.getHoraFinSer()));
             statement.setInt(5, servicio.getPuedePerro());
             statement.setInt(6, servicio.getPuedeGato());
             statement.setInt(7, servicio.getPuedeAve());
@@ -137,37 +137,105 @@ public class ServicioControlador implements ServicioRepository {
         }
     }
 
+    @Override
+    public void updateService(Servicio servicio) {
+    	
+    	try {
+            PreparedStatement checkStatement = connection.prepareStatement("SELECT COUNT(*) FROM servicio WHERE codSer = ?");
+            checkStatement.setInt(1, servicio.getCodSer());
+            ResultSet resultSet = checkStatement.executeQuery();
+            if (resultSet.next()) {
+                if (resultSet.getInt(1) == 0) {
+                    JOptionPane.showMessageDialog(null, "Error: No hay ningún servicio asociado a ese código.");
+                    return;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return;
+        }
+    	
+        if (servicio.getNomSer().length() <= 3) {
+            JOptionPane.showMessageDialog(null, "Error: El nombre del servicio debe contener más de 3 caracteres.");
+            return;
+        }
 
+        LocalDate fechaActual = LocalDate.now();
+        LocalDate diaServicio = servicio.getDiaSer();
+        if (diaServicio.isBefore(fechaActual)) {
+            JOptionPane.showMessageDialog(null, "Error: El día del servicio debe ser en el futuro.");
+            return;
+        }
 
+        LocalTime horaActual = LocalTime.now();
+        LocalTime horaInicioServicio = servicio.getHoraIniSer().toLocalTime();
+        if (diaServicio.isEqual(fechaActual) && horaInicioServicio.isBefore(horaActual)) {
+            JOptionPane.showMessageDialog(null, "Error: La hora de inicio del servicio debe ser en el futuro.");
+            return;
+        }
+        if (horaInicioServicio.isBefore(LocalTime.parse("10:00:00")) || horaInicioServicio.isAfter(LocalTime.parse("20:30:00"))) {
+            JOptionPane.showMessageDialog(null, "Error: La hora de inicio del servicio debe estar entre las 10:00:00 y las 20:30:00.");
+            return;
+        }
 
-	@Override
-	public void updateService(Servicio servicio) {
-	    try {
-	        PreparedStatement statement = connection.prepareStatement("UPDATE servicio SET nomSer = ?, diaSer = ?, inicioSer = ?, finSer = ?, puedePerro = ?, puedeGato = ?, puedeAve = ?, puedeRoedor = ?, puedeReptil = ?, precioPerro = ?, precioGato = ?, precioAve = ?, precioRoedor = ?, precioReptil = ? WHERE codSer = ?");
-	        statement.setString(1, servicio.getNomSer());
-	        statement.setDate(2, Date.valueOf(servicio.getDiaSer()));
-	        statement.setTimestamp(3, Timestamp.valueOf(servicio.getInicioSer()));
-	        statement.setTimestamp(4, Timestamp.valueOf(servicio.getFinSer()));
-	        statement.setInt(5, servicio.getPuedePerro());
-	        statement.setInt(6, servicio.getPuedeGato());
-	        statement.setInt(7, servicio.getPuedeAve());
-	        statement.setInt(8, servicio.getPuedeRoedor());
-	        statement.setInt(9, servicio.getPuedeReptil());
-	        statement.setInt(10, servicio.getPrecioPerro());
-	        statement.setInt(11, servicio.getPrecioGato());
-	        statement.setInt(12, servicio.getPrecioAve());
-	        statement.setInt(13, servicio.getPrecioRoedor());
-	        statement.setInt(14, servicio.getPrecioReptil());
-	        statement.setInt(15, servicio.getCodSer());
+        LocalTime horaFinServicio = servicio.getHoraFinSer().toLocalTime();
+        if (diaServicio.isEqual(fechaActual) && horaFinServicio.isBefore(horaActual)) {
+            JOptionPane.showMessageDialog(null, "Error: La hora de fin del servicio debe ser en el futuro.");
+            return;
+        }
+        if (horaFinServicio.isBefore(horaInicioServicio) || horaFinServicio.isAfter(LocalTime.parse("20:30:00"))) {
+            JOptionPane.showMessageDialog(null, "Error: La hora de fin del servicio debe ser en el futuro al horario de inicio y antes de las 20:30:00.");
+            return;
+        }
 
-	        int rowsUpdated = statement.executeUpdate();
-	        if (rowsUpdated > 0) {
-	            System.out.println("Servicio actualizado exitosamente");
-	        }
-	    } catch (SQLException e) {
-	        e.printStackTrace();
-	    }
-	}
+        if (servicio.getPuedePerro() != 0 && servicio.getPuedePerro() != 1) {
+            JOptionPane.showMessageDialog(null, "Error: El valor de 'puedePerro' debe ser 0 o 1.");
+            return;
+        }
+        if (servicio.getPuedeGato() != 0 && servicio.getPuedeGato() != 1) {
+            JOptionPane.showMessageDialog(null, "Error: El valor de 'puedeGato' debe ser 0 o 1.");
+            return;
+        }
+        if (servicio.getPuedeAve() != 0 && servicio.getPuedeAve() != 1) {
+            JOptionPane.showMessageDialog(null, "Error: El valor de 'puedeAve' debe ser 0 o 1.");
+            return;
+        }
+        if (servicio.getPuedeRoedor() != 0 && servicio.getPuedeRoedor() != 1) {
+            JOptionPane.showMessageDialog(null, "Error: El valor de 'puedeRoedor' debe ser 0 o 1.");
+            return;
+        }
+        if (servicio.getPuedeReptil() != 0 && servicio.getPuedeReptil() != 1) {
+            JOptionPane.showMessageDialog(null, "Error: El valor de 'puedeReptil' debe ser 0 o 1.");
+            return;
+        }
+
+        try {
+            PreparedStatement statement = connection.prepareStatement("UPDATE servicio SET nomSer = ?, diaSer = ?, horaIniSer = ?, horaFinSer = ?, puedePerro = ?, puedeGato = ?, puedeAve = ?, puedeRoedor = ?, puedeReptil = ?, precioPerro = ?, precioGato = ?, precioAve = ?, precioRoedor = ?, precioReptil = ? WHERE codSer = ?");
+            statement.setString(1, servicio.getNomSer());
+            statement.setDate(2, Date.valueOf(servicio.getDiaSer()));
+            statement.setTimestamp(3, Timestamp.valueOf(servicio.getHoraIniSer()));
+            statement.setTimestamp(4, Timestamp.valueOf(servicio.getHoraFinSer()));
+            statement.setInt(5, servicio.getPuedePerro());
+            statement.setInt(6, servicio.getPuedeGato());
+            statement.setInt(7, servicio.getPuedeAve());
+            statement.setInt(8, servicio.getPuedeRoedor());
+            statement.setInt(9, servicio.getPuedeReptil());
+            statement.setInt(10, servicio.getPrecioPerro());
+            statement.setInt(11, servicio.getPrecioGato());
+            statement.setInt(12, servicio.getPrecioAve());
+            statement.setInt(13, servicio.getPrecioRoedor());
+            statement.setInt(14, servicio.getPrecioReptil());
+            statement.setInt(15, servicio.getCodSer());
+
+            int rowsUpdated = statement.executeUpdate();
+            if (rowsUpdated > 0) {
+                JOptionPane.showMessageDialog(null, "Servicio actualizado exitosamente");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 
 
 	@Override
@@ -187,6 +255,6 @@ public class ServicioControlador implements ServicioRepository {
 
 	public void fechaActual(LocalDate fechaActual) {
 		diaActual = fechaActual;
-		
 	}
+	
 }

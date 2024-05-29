@@ -103,9 +103,62 @@ public class Main {
                                     
                                     break;
 
-                                    case 1:
-                                        // Implementar lógica para solicitar servicio
-                                        break;
+                                case 1:
+                                    if (codigoCliente != 0) {
+                                        List<Mascota> mascotasCliente = new ArrayList<>();
+                                        for (Mascota mascota : mascotaControlador.getAllPets()) {
+                                            if (mascota.getDueMas() == codigoCliente) {
+                                                mascotasCliente.add(mascota);
+                                            }
+                                        }
+
+                                        if (mascotasCliente.isEmpty()) {
+                                            JOptionPane.showMessageDialog(null, "El cliente no tiene mascotas registradas.");
+                                            break;
+                                        }
+
+                                        List<Servicio> servicios = servicioControlador.getAllServices();
+
+                                        Object[] opcionesServicios = new Object[servicios.size()];
+                                        for (int i = 0; i < servicios.size(); i++) {
+                                            Servicio servicio = servicios.get(i);
+                                            opcionesServicios[i] = servicio.getNomSer() + " (" + servicio.getDiaSer() + " - " + servicio.getHoraIniSer().toLocalTime() + " a " + servicio.getHoraFinSer().toLocalTime() + ")";
+                                        }
+                                        int seleccionServicioIndex = JOptionPane.showOptionDialog(null, "Seleccione un servicio", "Servicios",
+                                                JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opcionesServicios, opcionesServicios[0]);
+                                        Servicio servicioSeleccionado = servicios.get(seleccionServicioIndex);
+
+                                        LocalDate diaDeseado = LocalDate.parse(JOptionPane.showInputDialog("Ingrese el día para recibir el servicio (AAAA-MM-DD):"));
+
+                                        Object[] opcionesMascotas = new Object[mascotasCliente.size()];
+                                        for (int i = 0; i < mascotasCliente.size(); i++) {
+                                            Mascota mascota = mascotasCliente.get(i);
+                                            opcionesMascotas[i] = mascota.getNomMas() + " (" + mascota.getTipoMas() + ")";
+                                        }
+                                        int seleccionMascotaIndex = JOptionPane.showOptionDialog(null, "Seleccione una mascota", "Mascotas",
+                                                JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opcionesMascotas, opcionesMascotas[0]);
+                                        Mascota mascotaSeleccionada = mascotasCliente.get(seleccionMascotaIndex);
+
+                                        empleados = empleadoControlador.getAllEmployees();
+
+                                        Object[] opcionesEmpleados = new Object[empleados.size()];
+                                        for (int i = 0; i < empleados.size(); i++) {
+                                            Empleado empleado = empleados.get(i);
+                                            opcionesEmpleados[i] = empleado.getNomUsu();
+                                        }
+                                        int seleccionEmpleadoIndex = JOptionPane.showOptionDialog(null, "Seleccione un empleado", "Empleados",
+                                                JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opcionesEmpleados, opcionesEmpleados[0]);
+                                        Empleado empleadoSeleccionado = empleados.get(seleccionEmpleadoIndex);
+
+                                        clienteControlador.solicitarServicio(codigoCliente, servicioSeleccionado.getCodSer(), diaDeseado, mascotaSeleccionada.getCodMas(), empleadoSeleccionado.getCodUsu());
+                                    } else {
+                                        JOptionPane.showMessageDialog(null, "Error: Código de cliente no válido.");
+                                    }
+                                    break;
+
+
+
+
                                     case 2:
                                         if (codigoCliente != 0) {
                                             List<Mascota> mascotasCliente = new ArrayList<>();
@@ -218,9 +271,44 @@ public class Main {
                                     servicioControlador.addService(nuevoServicio);
                                     break;
 
-                                    case 1:
-                                        // Implementar lógica para actualizar servicios
-                                        break;
+                                case 1:
+                                    int codigoServicio = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese el código del servicio a actualizar:"));
+                                    String nombreServicioActualizar = JOptionPane.showInputDialog(null, "Ingrese el nuevo nombre del servicio: (más de 3 caracteres)");
+                                    LocalDate diaServicioActualizar = LocalDate.parse(JOptionPane.showInputDialog(null, "Ingrese la nueva fecha del servicio (AAAA-MM-DD):"));
+                                    LocalDateTime horaInicioServicioActualizar = LocalDateTime.parse(JOptionPane.showInputDialog(null, "Ingrese la nueva hora de inicio del servicio (AAAA-MM-DD HH:MM:SS):"), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+                                    LocalDateTime horaFinServicioActualizar = LocalDateTime.parse(JOptionPane.showInputDialog(null, "Ingrese la nueva hora de fin del servicio (AAAA-MM-DD HH:MM:SS):"), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+                                    int puedePerroActualizar = Integer.parseInt(JOptionPane.showInputDialog(null, "¿El servicio acepta perros? (1 para sí, 0 para no):"));
+                                    int puedeGatoActualizar = Integer.parseInt(JOptionPane.showInputDialog(null, "¿El servicio acepta gatos? (1 para sí, 0 para no):"));
+                                    int puedeAveActualizar = Integer.parseInt(JOptionPane.showInputDialog(null, "¿El servicio acepta aves? (1 para sí, 0 para no):"));
+                                    int puedeRoedorActualizar = Integer.parseInt(JOptionPane.showInputDialog(null, "¿El servicio acepta roedores? (1 para sí, 0 para no):"));
+                                    int puedeReptilActualizar = Integer.parseInt(JOptionPane.showInputDialog(null, "¿El servicio acepta reptiles? (1 para sí, 0 para no):"));
+                                    int precioPerroActualizar = 0;
+                                    int precioGatoActualizar = 0;
+                                    int precioAveActualizar = 0;
+                                    int precioRoedorActualizar = 0;
+                                    int precioReptilActualizar = 0;
+                                    
+                                    if (puedePerroActualizar == 1) {
+                                        precioPerroActualizar = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese el nuevo precio para perros:"));
+                                    }
+                                    if (puedeGatoActualizar == 1) {
+                                        precioGatoActualizar = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese el nuevo precio para gatos:"));
+                                    }
+                                    if (puedeAveActualizar == 1) {
+                                        precioAveActualizar = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese el nuevo precio para aves:"));
+                                    }
+                                    if (puedeRoedorActualizar == 1) {
+                                        precioRoedorActualizar = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese el nuevo precio para roedores:"));
+                                    }
+                                    if (puedeReptilActualizar == 1) {
+                                        precioReptilActualizar = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese el nuevo precio para reptiles:"));
+                                    }
+                                    
+                                    Servicio servicioActualizado = new Servicio(codigoServicio, nombreServicioActualizar, diaServicioActualizar, horaInicioServicioActualizar, horaFinServicioActualizar, puedePerroActualizar, puedeGatoActualizar, puedeAveActualizar, puedeRoedorActualizar, puedeReptilActualizar, precioPerroActualizar, precioGatoActualizar, precioAveActualizar, precioRoedorActualizar, precioReptilActualizar);
+
+                                    servicioControlador.updateService(servicioActualizado);
+                                    break;
+
                                     case 2:
                                     	List<Empleado> listaEmpleados = empleadoControlador.getAllEmployees();
                                         if (listaEmpleados.isEmpty()) {

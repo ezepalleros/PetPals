@@ -6,8 +6,8 @@ public class Servicio {
     private int codSer;
     private String nomSer;
     private LocalDate diaSer;
-    private LocalDateTime inicioSer;
-    private LocalDateTime finSer;
+    private LocalDateTime horaIniSer;
+    private LocalDateTime horaFinSer;
     private int puedePerro;
     private int puedeGato;
     private int puedeAve;
@@ -19,14 +19,14 @@ public class Servicio {
     private int precioRoedor;
     private int precioReptil;
 
-    public Servicio(int codSer, String nomSer, LocalDate diaSer, LocalDateTime inicioSer, LocalDateTime finSer, 
+    public Servicio(int codSer, String nomSer, LocalDate diaSer, LocalDateTime horaIniSer, LocalDateTime horaFinSer, 
     		int puedePerro, int puedeGato, int puedeAve, int puedeRoedor, 
     		int puedeReptil, int precioPerro, int precioGato, int precioAve, int precioRoedor, int precioReptil) {
         this.codSer = codSer;
         this.nomSer = nomSer;
         this.diaSer = diaSer;
-        this.inicioSer = inicioSer;
-        this.finSer = finSer;
+        this.horaIniSer = horaIniSer;
+        this.horaFinSer = horaFinSer;
         this.puedePerro = puedePerro;
         this.puedeGato = puedeGato;
         this.puedeAve = puedeAve;
@@ -62,24 +62,24 @@ public class Servicio {
 	public void setDiaSer(LocalDate diaSer) {
 		this.diaSer = diaSer;
 	}
+	
+	public LocalDateTime getHoraIniSer() {
+		return horaIniSer;
+	}
 
-	public LocalDateTime getInicioSer() {
-        return inicioSer;
-    }
+	public void setHoraIniSer(LocalDateTime horaIniSer) {
+		this.horaIniSer = horaIniSer;
+	}
 
-    public void setInicioSer(LocalDateTime inicioSer) {
-        this.inicioSer = inicioSer;
-    }
+	public LocalDateTime getHoraFinSer() {
+		return horaFinSer;
+	}
 
-    public LocalDateTime getFinSer() {
-        return finSer;
-    }
+	public void setHoraFinSer(LocalDateTime horaFinSer) {
+		this.horaFinSer = horaFinSer;
+	}
 
-    public void setFinSer(LocalDateTime finSer) {
-        this.finSer = finSer;
-    }
-
-    public int getPuedePerro() {
+	public int getPuedePerro() {
 		return puedePerro;
 	}
 

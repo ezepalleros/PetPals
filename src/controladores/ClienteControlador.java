@@ -5,19 +5,26 @@ import java.sql.Connection;
 
 
 
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JOptionPane;
 
 import interfaces.ClienteRepository;
-import modelos.Cliente;
+import modelos.*;
 
 public class ClienteControlador implements ClienteRepository {
     private final Connection connection;
+    MascotaControlador mascotaControlador = new MascotaControlador();
+    ServicioControlador servicioControlador = new  ServicioControlador();
+    EmpleadoControlador empleadoControlador = new EmpleadoControlador();
+    
+    LocalDate diaActual = null;
 
     public ClienteControlador() {
         this.connection = DatabaseConnection.getInstance().getConnection();
@@ -96,8 +103,6 @@ public class ClienteControlador implements ClienteRepository {
 	    }
 	}
 
-
-
 	@Override
     public void updateClient(Cliente cliente) {
         try {
@@ -130,5 +135,56 @@ public class ClienteControlador implements ClienteRepository {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-    }  
+    }
+    
+    public void solicitarServicio(int clienteId, int codServicio, LocalDate diaDeseado, int idMascota, int idEmpleado) {
+        Servicio servicioSeleccionado = null;
+        for (Servicio servicio : servicioControlador.getAllServices()) {
+            if (servicio.getCodSer() == codServicio) {
+                servicioSeleccionado = servicio;
+            }
+        }
+
+        Mascota mascotaSeleccionada = null;
+        for (Mascota mascota : mascotaControlador.getAllPets()) {
+            if (mascota.getCodMas() == idMascota) {
+                mascotaSeleccionada = mascota;
+                break;
+            }
+        }
+        
+        String puedeMascota = null;
+        
+        if (servicioSeleccionado.getPuedePerro() == 1) {
+        	puedeMascota += "Perro ";
+		}
+        if (servicioSeleccionado.getPuedeGato() == 1) {
+        	puedeMascota += "Gato ";
+		}
+        if (servicioSeleccionado.getPuedeAve() == 1) {
+        	puedeMascota += "Ave ";
+		}
+        if (servicioSeleccionado.getPuedeRoedor() == 1) {
+        	puedeMascota += "Roedor ";
+		}
+        if (servicioSeleccionado.getPuedeReptil() == 1) {
+        	puedeMascota += "Reptil ";
+		}
+
+        if (mascotaSeleccionada.getVariMas().contains(puedeMascota)) {
+            JOptionPane.showMessageDialog(null, "Error: La mascota no puede recibir este servicio");
+            return;
+        }
+
+        if (diaDeseado.isBefore(diaActual) || diaDeseado.isAfter(servicioSeleccionado.getDiaSer())) {
+            JOptionPane.showMessageDialog(null, "Error: El día deseado no puede ser en el pasado o después de la última fecha del servicio.");
+            return;
+        }
+
+        JOptionPane.showMessageDialog(null, "Servicio solicitado exitosamente.");
+    }
+    
+	public void fechaActual(LocalDate fechaActual) {
+		diaActual = fechaActual;
+	}
 }
