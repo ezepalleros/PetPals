@@ -1,6 +1,8 @@
 package vista;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import javax.swing.JOptionPane;
 
@@ -12,6 +14,9 @@ public class Main {
 	    ClienteControlador clienteControlador = new ClienteControlador();
 	    EmpleadoControlador empleadoControlador = new EmpleadoControlador();
 	    GerenteControlador gerenteControlador = new GerenteControlador();
+	    MascotaControlador mascotaControlador = new MascotaControlador();
+	    ServicioControlador servicioControlador = new  ServicioControlador();
+	    
 	    LocalDate fechaActual = LocalDate.now();
 	    boolean irse1 = false;
 	    
@@ -79,9 +84,25 @@ public class Main {
                             do {
                                 int opcionCliente = JOptionPane.showOptionDialog(null, args, "Elige qué quieres hacer.", 0, 0, null, menuCliente, menuCliente[0]);
                                 switch (opcionCliente) {
-                                    case 0:
-                                        // Implementar lógica para registrar mascota
-                                        break;
+                                case 0:
+                                	
+                                	String nombreMascota = JOptionPane.showInputDialog(null, "Ingrese el nombre de la mascota: (más de 3 caracteres)");
+                                    String variedadMascota = JOptionPane.showInputDialog(null, "Ingrese la variedad de la mascota (Perro, Gato, Ave, Roedor, Reptil):");
+                                    String tipoMascota = JOptionPane.showInputDialog(null, "Ingrese el tipo de mascota: (Labrador, Loro, etc.)");
+                                    int edadMascota = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese la edad de la mascota:"));
+                                    int vacunasMascota = Integer.parseInt(JOptionPane.showInputDialog(null, "¿La mascota tiene vacunas? (1 si tiene, 0 si no tiene):"));
+                                    String caracterMascota = JOptionPane.showInputDialog(null, "Ingrese el carácter de la mascota (Amistoso/a, Juguetón/a, Agresivo/a):");
+                                    int dietaMascota = Integer.parseInt(JOptionPane.showInputDialog(null, "¿La mascota está en dieta? (1 para sí, 0 para no):"));
+                                    int chipMascota = Integer.parseInt(JOptionPane.showInputDialog(null, "¿La mascota tiene chip? (1 si tiene, 0 si no tiene):"));
+                                    int adoptarMascota = 0;
+                                    int codigodeMascota = codigoCliente;
+                                    
+                                    Mascota nuevaMascota = new Mascota(0, nombreMascota, variedadMascota, tipoMascota, edadMascota, vacunasMascota, caracterMascota, dietaMascota, chipMascota, adoptarMascota, codigodeMascota);
+                                    
+                                    mascotaControlador.addPet(nuevaMascota);
+                                    
+                                    break;
+
                                     case 1:
                                         // Implementar lógica para solicitar servicio
                                         break;
@@ -89,7 +110,6 @@ public class Main {
                                         if (codigoCliente != 0) {
                                             List<Mascota> mascotasCliente = new ArrayList<>();
 
-                                            MascotaControlador mascotaControlador = new MascotaControlador();
                                             for (Mascota mascota : mascotaControlador.getAllPets()) {
                                                 if (mascota.getDueMas() == codigoCliente) {
                                                     mascotasCliente.add(mascota);
@@ -142,9 +162,62 @@ public class Main {
                             do {
                                 int opcionGerente = JOptionPane.showOptionDialog(null, args, "Elige qué quieres hacer.", 0, 0, null, menuGerente, menuGerente[0]);
                                 switch (opcionGerente) {
-                                    case 0:
-                                        // Implementar lógica para agregar servicios
-                                        break;
+                                case 0:
+                                    String nombreServicio = JOptionPane.showInputDialog(null, "Ingrese el nombre del servicio: (más de 3 caracteres)");
+                                    LocalDate diaServicio = LocalDate.parse(JOptionPane.showInputDialog(null, "Ingrese la fecha del servicio (AAAA-MM-DD):"));
+
+                                    LocalDateTime horaInicioServicio = LocalDateTime.parse(JOptionPane.showInputDialog(null, "Ingrese la hora de inicio del servicio (AAAA-MM-DD HH:MM:SS):"), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+
+                                    LocalDateTime horaFinServicio = LocalDateTime.parse(JOptionPane.showInputDialog(null, "Ingrese la hora de fin del servicio (AAAA-MM-DD HH:MM:SS):"), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+
+                                    int puedePerro = Integer.parseInt(JOptionPane.showInputDialog(null, "¿El servicio acepta perros? (1 para sí, 0 para no):"));
+                                    int puedeGato = Integer.parseInt(JOptionPane.showInputDialog(null, "¿El servicio acepta gatos? (1 para sí, 0 para no):"));
+                                    int puedeAve = Integer.parseInt(JOptionPane.showInputDialog(null, "¿El servicio acepta aves? (1 para sí, 0 para no):"));
+                                    int puedeRoedor = Integer.parseInt(JOptionPane.showInputDialog(null, "¿El servicio acepta roedores? (1 para sí, 0 para no):"));
+                                    int puedeReptil = Integer.parseInt(JOptionPane.showInputDialog(null, "¿El servicio acepta reptiles? (1 para sí, 0 para no):"));
+                                    int precioPerro = 0;
+                                    int precioGato = 0;
+                                    int precioAve = 0;
+                                    int precioRoedor = 0;
+                                    int precioReptil = 0;
+                                    
+                                    if (puedePerro==1) {
+                                    	precioPerro = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese el precio para perros:"));
+										
+									} else {
+										precioPerro = 0;
+									}
+                                    
+                                    if (puedeGato==1) {
+                                    	precioGato = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese el precio para gatos:"));
+									} else {
+										precioGato = 0;
+									}
+                                    
+                                    if (puedeAve == 1) {
+                                    	precioAve = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese el precio para aves:"));
+									} else {
+										precioAve = 0;
+									}
+                                    
+                                    if (puedeRoedor == 1) {
+                                    	precioRoedor = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese el precio para roedores:"));
+									} else {
+										precioRoedor = 0;
+									}
+                                    
+                                    if (puedeReptil == 1) {
+                                    	precioReptil = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese el precio para reptiles:"));
+									} else {
+										precioReptil = 0;
+									}
+                                    
+                                    Servicio nuevoServicio = new Servicio(0, nombreServicio, diaServicio, horaInicioServicio, horaFinServicio, puedePerro, puedeGato, puedeAve, puedeRoedor, puedeReptil, precioPerro, precioGato, precioAve, precioRoedor, precioReptil);
+
+                                    servicioControlador.fechaActual(fechaActual);
+                                    servicioControlador.addService(nuevoServicio);
+                                    break;
+
                                     case 1:
                                         // Implementar lógica para actualizar servicios
                                         break;
@@ -163,8 +236,18 @@ public class Main {
                                         }
                                         break;
                                     case 3:
-                                        // Implementar lógica para ver mascotas
+                                        List<Mascota> mascotas = mascotaControlador.getAllPets();
+
+                                        String mascotasInfo = "Mascotas registradas:\n";
+                                        for (Mascota mascota : mascotas) {
+                                        	mascotasInfo += "ID: " + mascota.getCodMas() + "\n";
+                                        	mascotasInfo += "Nombre: " + mascota.getNomMas() + "\n";
+                                            mascotasInfo += "Tipo: " + mascota.getTipoMas() + "\n\n";
+                                        }
+
+                                        JOptionPane.showMessageDialog(null, mascotasInfo);
                                         break;
+
                                     case 4:
                                         irseGerente = true;
                                         break;

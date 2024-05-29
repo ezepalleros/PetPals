@@ -9,6 +9,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
 import interfaces.MascotaRepository;
 import modelos.Mascota;
 
@@ -54,8 +56,55 @@ public class MascotaControlador implements MascotaRepository {
         return mascotas;
     }
     
-	@Override
+    @Override
     public void addPet(Mascota mascota) {
+        if (mascota.getNomMas().length() < 3 || mascota.getNomMas().matches(".*\\d.*")) {
+        	JOptionPane.showMessageDialog(null,"Error: El nombre de la mascota debe tener al menos 3 caracteres y no debe contener números.");
+            return;
+        }
+
+        String variedadMascota = mascota.getVariMas().toLowerCase();
+        if (!variedadMascota.equalsIgnoreCase("perro") && !variedadMascota.equalsIgnoreCase("gato") &&
+            !variedadMascota.equalsIgnoreCase("ave") && !variedadMascota.equalsIgnoreCase("roedor") &&
+            !variedadMascota.equalsIgnoreCase("reptil")) {
+        	JOptionPane.showMessageDialog(null,"Error: La variedad de la mascota no es válida.");
+            return;
+        }
+
+        if (mascota.getTipoMas().length() < 3 || mascota.getTipoMas().matches(".*\\d.*")) {
+        	JOptionPane.showMessageDialog(null,"Error: El tipo de la mascota debe tener al menos 3 caracteres y no debe contener números.");
+            return;
+        }
+
+        if (mascota.getEdadMas() <= 0) {
+        	JOptionPane.showMessageDialog(null, "Error: La edad de la mascota debe ser mayor que 0.");
+            return;
+        }
+
+        if (mascota.getVacuMas() != 0 && mascota.getVacuMas() != 1) {
+        	JOptionPane.showMessageDialog(null, "Error: El valor de vacunación de la mascota debe ser 0 o 1.");
+            return;
+        }
+
+        String caracterMascota = mascota.getCaracMas().toLowerCase();
+        if (!caracterMascota.equalsIgnoreCase("amistoso") && !caracterMascota.equalsIgnoreCase("jugueton") && !caracterMascota.equalsIgnoreCase("agresivo") && 
+        		!caracterMascota.equalsIgnoreCase("amistosa") && !caracterMascota.equalsIgnoreCase("juguetona") && !caracterMascota.equalsIgnoreCase("agresiva")) {
+        	JOptionPane.showMessageDialog(null,"Error: El carácter de la mascota no es válido.");
+            return;
+        }
+
+        if (mascota.getDietMas() != 0 && mascota.getDietMas() != 1) {
+        	JOptionPane.showMessageDialog(null,"Error: El valor de dieta de la mascota debe ser 0 o 1.");
+            return;
+        }
+
+        if (mascota.getChipMas() != 0 && mascota.getChipMas() != 1) {
+        	JOptionPane.showMessageDialog(null,"Error: El valor del chip de identificación de la mascota debe ser 0 o 1.");
+            return;
+        }
+
+        int codigoCliente = mascota.getDueMas();
+
         try {
             PreparedStatement statement = connection.prepareStatement("INSERT INTO mascota (nomMas, variMas, tipoMas, edadMas, vacuMas, caracMas, dietMas, chipMas, adoptar, dueMas) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
             statement.setString(1, mascota.getNomMas());
@@ -67,16 +116,17 @@ public class MascotaControlador implements MascotaRepository {
             statement.setInt(7, mascota.getDietMas());
             statement.setInt(8, mascota.getChipMas());
             statement.setInt(9, mascota.getAdoptar());
-            statement.setInt(10, mascota.getDueMas());
-            
+            statement.setInt(10, codigoCliente);
+
             int rowsInserted = statement.executeUpdate();
             if (rowsInserted > 0) {
-                System.out.println("Mascota insertada exitosamente");
+            	JOptionPane.showMessageDialog(null,"Mascota insertada exitosamente");
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
+
 
 	@Override
     public void updatePet(Mascota mascota) {
