@@ -18,7 +18,7 @@ public class Gerente extends Usuario {
 		this.salGer = salGer;
 	}
 
-    protected int iniciarSesionGerente(String nombre, String mail) {
+    public int iniciarSesionGerente(String nombre, String mail) {
         if (nombre.length() >= 8 && mail.length() >= 8) {
             if (this.getMailUsu().equals(mail)) {
                 if (this.getNomUsu().equals(nombre)) {

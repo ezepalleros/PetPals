@@ -27,7 +27,7 @@ public class MascotaControlador implements MascotaRepository {
             ResultSet resultSet = statement.executeQuery();
        
             while (resultSet.next()) {
-            	Mascota mascota = new Mascota(resultSet.getInt("codMas"), resultSet.getString("nomMas"), resultSet.getString("variMas"), resultSet.getString("tipoMas"), resultSet.getInt("edadMas"), resultSet.getInt("vacuMas"), resultSet.getString("caracterMas"), resultSet.getInt("dietMas"), resultSet.getInt("chipMas"), resultSet.getInt("adoptar"));
+            	Mascota mascota = new Mascota(resultSet.getInt("codMas"), resultSet.getString("nomMas"), resultSet.getString("variMas"), resultSet.getString("tipoMas"), resultSet.getInt("edadMas"), resultSet.getInt("vacuMas"), resultSet.getString("caracMas"), resultSet.getInt("dietMas"), resultSet.getInt("chipMas"), resultSet.getInt("adoptar"), resultSet.getInt("dueMas"));
             	mascotas.add(mascota);
             }
         } catch (SQLException e) {
@@ -46,7 +46,7 @@ public class MascotaControlador implements MascotaRepository {
             ResultSet resultSet = statement.executeQuery();
             
             if (resultSet.next()) {
-            	mascotas = new Mascota(resultSet.getInt("codMas"), resultSet.getString("nomMas"), resultSet.getString("variMas"), resultSet.getString("tipoMas"), resultSet.getInt("edadMas"), resultSet.getInt("vacuMas"), resultSet.getString("caracterMas"), resultSet.getInt("dietMas"), resultSet.getInt("chipMas"), resultSet.getInt("adoptar"));
+            	mascotas = new Mascota(resultSet.getInt("codMas"), resultSet.getString("nomMas"), resultSet.getString("variMas"), resultSet.getString("tipoMas"), resultSet.getInt("edadMas"), resultSet.getInt("vacuMas"), resultSet.getString("caracMas"), resultSet.getInt("dietMas"), resultSet.getInt("chipMas"), resultSet.getInt("adoptar"), resultSet.getInt("dueMas"));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -57,16 +57,17 @@ public class MascotaControlador implements MascotaRepository {
 	@Override
     public void addPet(Mascota mascota) {
         try {
-            PreparedStatement statement = connection.prepareStatement("INSERT INTO mascota (nomMas, variMas, tipoMas, edadMas, vacuMas, caracterMas, dietMas, chipMas, adoptar) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+            PreparedStatement statement = connection.prepareStatement("INSERT INTO mascota (nomMas, variMas, tipoMas, edadMas, vacuMas, caracMas, dietMas, chipMas, adoptar, dueMas) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
             statement.setString(1, mascota.getNomMas());
             statement.setString(2, mascota.getVariMas());
             statement.setString(3, mascota.getTipoMas());
             statement.setInt(4, mascota.getEdadMas());
             statement.setInt(5, mascota.getVacuMas());
-            statement.setString(6, mascota.getCaracterMas());
+            statement.setString(6, mascota.getCaracMas());
             statement.setInt(7, mascota.getDietMas());
             statement.setInt(8, mascota.getChipMas());
             statement.setInt(9, mascota.getAdoptar());
+            statement.setInt(10, mascota.getDueMas());
             
             int rowsInserted = statement.executeUpdate();
             if (rowsInserted > 0) {
@@ -80,16 +81,17 @@ public class MascotaControlador implements MascotaRepository {
 	@Override
     public void updatePet(Mascota mascota) {
         try {
-            PreparedStatement statement = connection.prepareStatement("UPDATE mascota SET nomMas = ?, variMas = ?, tipoMas = ?, edadMas = ?, vacuMas = ?, caracterMas = ?, dietMas = ?, chipMas = ?, adoptar = ? WHERE codMas = ?");
+            PreparedStatement statement = connection.prepareStatement("UPDATE mascota SET nomMas = ?, variMas = ?, tipoMas = ?, edadMas = ?, vacuMas = ?, caracMas = ?, dietMas = ?, chipMas = ?, adoptar = ?, dueMas = ? WHERE codMas = ?");
             statement.setString(1, mascota.getNomMas());
             statement.setString(2, mascota.getVariMas());
             statement.setString(3, mascota.getTipoMas());
             statement.setInt(4, mascota.getEdadMas());
             statement.setInt(5, mascota.getVacuMas());
-            statement.setString(6, mascota.getCaracterMas());
+            statement.setString(6, mascota.getCaracMas());
             statement.setInt(7, mascota.getDietMas());
             statement.setInt(8, mascota.getChipMas());
             statement.setInt(9, mascota.getAdoptar());
+            statement.setInt(10, mascota.getDueMas());
             
             int rowsUpdated = statement.executeUpdate();
             if (rowsUpdated > 0) {

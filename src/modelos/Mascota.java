@@ -10,23 +10,25 @@ public class Mascota {
     private String tipoMas;
     private int edadMas;
     private int vacuMas;
-    private String caracterMas;
+    private String caracMas;
     private int dietMas;
     private int chipMas;
     private int adoptar;
+    private int dueMas;
 
     public Mascota(int codMas, String nomMas, String variMas, String tipoMas, int edadMas, int vacuMas,
-                   String caracterMas, int dietMas, int chipMas, int adoptar) {
+                   String caracMas, int dietMas, int chipMas, int adoptar, int dueMas) {
         this.codMas = codMas;
         this.nomMas = nomMas;
         this.variMas = variMas;
         this.tipoMas = tipoMas;
         this.edadMas = edadMas;
         this.vacuMas = vacuMas;
-        this.caracterMas = caracterMas;
+        this.caracMas = caracMas;
         this.dietMas = dietMas;
         this.chipMas = chipMas;
         this.adoptar = adoptar;
+        this.dueMas = dueMas;
     }
 
     public int getCodMas() {
@@ -77,12 +79,12 @@ public class Mascota {
 		this.vacuMas = vacuMas;
 	}
 
-	public String getCaracterMas() {
-        return caracterMas;
+	public String getCaracMas() {
+        return caracMas;
     }
 
     public void setCaracterMas(String caracterMas) {
-        this.caracterMas = caracterMas;
+        this.caracMas = caracterMas;
     }
 
     public int getDietMas() {
@@ -109,34 +111,12 @@ public class Mascota {
 		this.adoptar = adoptar;
 	}
 	
-		public static Mascota crearNuevaMascota(int codUsuActual, LinkedList<Mascota> mascotasRegistradas) {
-			int nuevoCodigoMascota = 100000;
-			for (Mascota mascota : mascotasRegistradas) {
-				int codigoMascota = mascota.getCodMas();
-				if (codigoMascota >= nuevoCodigoMascota) {
-					nuevoCodigoMascota = codigoMascota + 1;
-				}
-			}
-	        String nomMas = JOptionPane.showInputDialog(null, "Ingrese el nombre de la mascota:");
-	        String variMas = JOptionPane.showInputDialog(null, "Ingrese la variante de la mascota (perro, gato, ave, roedor, reptil):");
-	        String tipoMas = JOptionPane.showInputDialog(null, "Ingrese el tipo de mascota (labrador, persia, etc.):");
-	        int edadMas = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese la edad de la mascota:"));
-	        int vacuMas = Integer.parseInt(JOptionPane.showInputDialog(null, "¿La mascota está vacunada? (1/0):"));
-	        String caracterMas = JOptionPane.showInputDialog(null, "Ingrese el carácter de la mascota (Amistosa, Juguetona, Agresiva):");
-	        int dietMas = Integer.parseInt(JOptionPane.showInputDialog(null, "la mascota está en dieta? (1/0):"));
-	        int chipMas = Integer.parseInt(JOptionPane.showInputDialog(null, "¿La mascota tiene chip? (true/false):"));
-	
-	        return new Mascota(nuevoCodigoMascota, nomMas, variMas, tipoMas, edadMas, vacuMas, caracterMas, dietMas, chipMas, codUsuActual);
-	    }
+	public int getDueMas() {
+		return dueMas;
+	}
 
-		@Override
-		public String toString() {
-			return "Mascota " + codMas + ": \nNombre: " + nomMas + "\nEdad: " + edadMas + "\nTipo: " + tipoMas
-					+ "\nVariedad: " + variMas + "\nVacunado: " + vacuMas + "\nCaracter: " + caracterMas + "\nDieta: "
-					+ dietMas + "\nChip: " + chipMas + "\nAdoptar: " + adoptar + "\n-------------------\n";
-		}
-		
-		
-
+	public void setDueMas(int dueMas) {
+		this.dueMas = dueMas;
+	}
 
 }

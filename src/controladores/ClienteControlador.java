@@ -75,8 +75,8 @@ public class ClienteControlador implements ClienteRepository {
 	        return;
 	    }
 
-	    if (cliente.getTelUsu().length() != 12) {
-	    	JOptionPane.showMessageDialog(null, "Error: El número de teléfono debe tener exactamente 12 caracteres.");
+	    if (cliente.getTelUsu().length() > 12) {
+	    	JOptionPane.showMessageDialog(null, "Error: El número de teléfono no debe tener mas de 12 caracteres.");
 	        return;
 	    }
 

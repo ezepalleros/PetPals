@@ -44,7 +44,7 @@ public class Empleado extends Usuario {
     }
 
     @Override
-    protected int iniciarSesionEmpleado(String nombre, String mail) {
+	public int iniciarSesionEmpleado(String nombre, String mail) {
         if (nombre.length() >= 8 && mail.length() >= 8) {
             if (this.getMailUsu().equals(mail)) {
                 if (this.getNomUsu().equals(nombre)) {

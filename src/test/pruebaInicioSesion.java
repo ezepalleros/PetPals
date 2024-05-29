@@ -37,4 +37,18 @@ public class pruebaInicioSesion {
   assertEquals(true,flag);
 
  }
+ 
+ @Test
+ public void PruebaIniciarSesionF2() {
+  ClienteControlador controlador = new ClienteControlador();
+  boolean flag=false;
+  for (Cliente cliente : controlador.getAllClients()) {
+   if (cliente.iniciarSesionCliente("", "hola.com") == 0) {
+    flag =true;
+    break;
+   } 
+  }
+  assertEquals(true,flag);
+
+ }
 }
