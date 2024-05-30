@@ -25,6 +25,7 @@ public class ClienteControlador implements ClienteRepository {
     EmpleadoControlador empleadoControlador = new EmpleadoControlador();
     
     LocalDate diaActual = null;
+    private String mensajeError = "";
 
     public ClienteControlador() {
         this.connection = DatabaseConnection.getInstance().getConnection();
@@ -137,9 +138,9 @@ public class ClienteControlador implements ClienteRepository {
         }
     }
     
-	
     public void solicitarServicio(int clienteId, int codServicio, LocalDate diaDeseado, int idMascota, int idEmpleado) {
         Servicio servicioSeleccionado = null;
+        boolean errorServicio = false;
         for (Servicio servicio : servicioControlador.getAllServices()) {
             if (servicio.getCodSer() == codServicio) {
                 servicioSeleccionado = servicio;
@@ -170,20 +171,30 @@ public class ClienteControlador implements ClienteRepository {
         }
 
         if (!puedeRecibirServicio) {
-            JOptionPane.showMessageDialog(null, "Error: La mascota no puede recibir este servicio");
-            return;
+        	mensajeError += "Error: La mascota no puede recibir este servicio \n";
+            errorServicio=true;
         }
         
         if (diaDeseado.isBefore(diaActual) || diaDeseado.isAfter(servicioSeleccionado.getDiaSer())) {
-            JOptionPane.showMessageDialog(null, "Error: El día deseado no puede ser en el pasado o después de la última fecha del servicio.");
-            return;
+        	mensajeError += "Error: El día deseado no puede ser en el pasado o después de la última fecha del servicio. \n";
+            errorServicio=true;
         }
+        
+        if (errorServicio) {
+        	JOptionPane.showMessageDialog(null, mensajeError);
+			return;
+		} else {
+			JOptionPane.showMessageDialog(null, "Servicio solicitado exitosamente.");
+		}
 
-
-        JOptionPane.showMessageDialog(null, "Servicio solicitado exitosamente.");
+        
     }
     
 	public void fechaActual(LocalDate fechaActual) {
 		diaActual = fechaActual;
 	}
+	
+	public String getMensajeError() {
+        return mensajeError;
+    }
 }
