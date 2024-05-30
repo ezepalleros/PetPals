@@ -6,6 +6,6 @@
 </head> 
 <body> 
     <img src="https://i.postimg.cc/mkrGCrfy/Diagrama-de-clases-Pet-Pals.jpg"> 
-    <img src="https://i.ibb.co/JQYwmhW/013039b9771bf2dcf72fc4e341629041.jpg"> 
+    <img src="https://i.postimg.cc/QMnzwJR1/Diagrama-de-entidad-relacion-Pet-Pals.jpg"> 
 </body> 
 </html>
