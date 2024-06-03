@@ -22,7 +22,7 @@ public class pruebaServicios {
 
 		clienteControlador.fechaActual(fechaActual);
 
-		clienteControlador.solicitarServicio(100001, 301, LocalDate.of(2024, 6, 1), 200001, 1001);
+		clienteControlador.solicitarServicio(100001, 301, LocalDate.of(2025, 6, 1), 200001, 1001);
 
 		String mensajeError = clienteControlador.getMensajeError();
 
@@ -72,8 +72,8 @@ public class pruebaServicios {
 	public void PruebaAgregarServicioV() {
 		boolean flag = false;
 
-		Servicio nuevoServicio = new Servicio(0, "Prueba 1", LocalDate.of(2024, 6, 12),
-				LocalDateTime.of(2024, 6, 12, 14, 6), LocalDateTime.of(2024, 6, 12, 16, 6), 1, 1, 0, 0, 1, 2000, 4000,
+		Servicio nuevoServicio = new Servicio(0, "Prueba 1", LocalDate.of(2025, 6, 12),
+				LocalDateTime.of(2025, 6, 12, 14, 6), LocalDateTime.of(2025, 6, 12, 16, 6), 1, 1, 0, 0, 1, 2000, 4000,
 				0, 0, 9000);
 
 		servicioControlador.fechaActual(fechaActual);
@@ -132,8 +132,8 @@ public class pruebaServicios {
 	public void PruebaActualizarServicioV() {
 		boolean flag = false;
 
-		Servicio nuevoServicio = new Servicio(301, "Paseo", LocalDate.of(2024, 6, 3),
-				LocalDateTime.of(2024, 6, 3, 10, 00), LocalDateTime.of(2024, 6, 3, 20, 30), 1, 0, 0, 0, 0, 15000, 0, 0,
+		Servicio nuevoServicio = new Servicio(301, "Paseo", LocalDate.of(2025, 6, 3),
+				LocalDateTime.of(2025, 6, 3, 10, 00), LocalDateTime.of(2025, 6, 3, 20, 30), 1, 0, 0, 0, 0, 15000, 0, 0,
 				0, 0);
 
 		servicioControlador.fechaActual(fechaActual);
