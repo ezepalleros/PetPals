@@ -206,7 +206,7 @@ public class PantallaRegistro extends JFrame {
                 boolean error = false;
 
                 if (nombreUsuario.isEmpty() || nombreUsuario.equals("oscarGomez")) {
-                    lblErrorNombre.setText("Error: Ingrese un nombre válido.");
+                    lblErrorNombre.setText("Error: Ingrese un nombre.");
                     lblErrorNombre.setVisible(true);
                     error = true;
                 } else {
@@ -214,7 +214,7 @@ public class PantallaRegistro extends JFrame {
                 }
 
                 if (correoUsuario.isEmpty() || correoUsuario.equals("oscarGomez@gmail.com")) {
-                    lblErrorCorreo.setText("Error: Ingrese un correo válido.");
+                    lblErrorCorreo.setText("Error: Ingrese un correo.");
                     lblErrorCorreo.setVisible(true);
                     error = true;
                 } else {
@@ -222,7 +222,7 @@ public class PantallaRegistro extends JFrame {
                 }
 
                 if (direccionUsuario.isEmpty() || direccionUsuario.equals("Aconcagua 2445 c")) {
-                    lblErrorDireccion.setText("Error: Ingrese una dirección válida.");
+                    lblErrorDireccion.setText("Error: Ingrese una dirección.");
                     lblErrorDireccion.setVisible(true);
                     error = true;
                 } else {
@@ -230,7 +230,7 @@ public class PantallaRegistro extends JFrame {
                 }
 
                 if (telefonoUsuario.isEmpty() || telefonoUsuario.equals("1137894221")) {
-                    lblErrorTelefono.setText("Error: Ingrese un teléfono válido.");
+                    lblErrorTelefono.setText("Error: Ingrese un teléfono.");
                     lblErrorTelefono.setVisible(true);
                     error = true;
                 } else {
@@ -264,4 +264,3 @@ public class PantallaRegistro extends JFrame {
         contentPane.add(lblRegistro);
     }
 }
-

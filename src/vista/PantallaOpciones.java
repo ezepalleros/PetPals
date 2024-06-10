@@ -10,6 +10,7 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
 import java.awt.event.ActionEvent;
+import javax.swing.SwingConstants;
 
 public class PantallaOpciones extends JFrame {
     
@@ -48,8 +49,9 @@ public class PantallaOpciones extends JFrame {
         contentPane.setLayout(null);
         
         JLabel lblPetPals = new JLabel("Petpals");
+        lblPetPals.setHorizontalAlignment(SwingConstants.CENTER);
         lblPetPals.setFont(new Font("Tw Cen MT Condensed Extra Bold", Font.PLAIN, 50));
-        lblPetPals.setBounds(193, 10, 149, 86);
+        lblPetPals.setBounds(0, 10, 529, 86);
         contentPane.add(lblPetPals);
         
         JButton btnIniciarSesion = new JButton("Iniciar Sesión");

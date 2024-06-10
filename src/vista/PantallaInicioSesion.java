@@ -19,6 +19,7 @@ import java.awt.event.ActionListener;
 import java.util.List;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
+import javax.swing.SwingConstants;
 
 public class PantallaInicioSesion extends JFrame {
 
@@ -36,7 +37,7 @@ public class PantallaInicioSesion extends JFrame {
      */
     public PantallaInicioSesion() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(100, 100, 545, 523);
+        setBounds(100, 100, 545, 423);
         contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -44,7 +45,7 @@ public class PantallaInicioSesion extends JFrame {
         contentPane.setLayout(null);
 
         JLabel lblNombre = new JLabel("Nombre");
-        lblNombre.setFont(new Font("Tahoma", Font.PLAIN, 30));
+        lblNombre.setFont(new Font("Tahoma", Font.PLAIN, 20));
         lblNombre.setBounds(133, 102, 215, 28);
         contentPane.add(lblNombre);
 
@@ -54,7 +55,7 @@ public class PantallaInicioSesion extends JFrame {
         inpNombre.setColumns(10);
 
         JLabel lblCorreo = new JLabel("Correo");
-        lblCorreo.setFont(new Font("Tahoma", Font.PLAIN, 30));
+        lblCorreo.setFont(new Font("Tahoma", Font.PLAIN, 20));
         lblCorreo.setBounds(133, 198, 215, 28);
         contentPane.add(lblCorreo);
 
@@ -69,7 +70,7 @@ public class PantallaInicioSesion extends JFrame {
         lblError.setVisible(false);
 
         JButton btnIngresar = new JButton("Ingresar");
-        btnIngresar.setFont(new Font("Tahoma", Font.PLAIN, 30));
+        btnIngresar.setFont(new Font("Tahoma", Font.PLAIN, 20));
         btnIngresar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 String nombreUsuario = inpNombre.getText();
@@ -83,10 +84,7 @@ public class PantallaInicioSesion extends JFrame {
                     for (Cliente cliente : clientes) {
                         tipoUsuario = cliente.iniciarSesion(nombreUsuario, correoUsuario);
                         if (tipoUsuario != 0) {
-                            JOptionPane.showMessageDialog(null, "Inicio de sesión exitoso como cliente con:\nUsuario: "
-                                    + cliente.getNomUsu() + "\nCódigo: " + cliente.getCodUsu());
-                            codigoCliente = cliente.getCodUsu();
-                            //PantallaCliente pantallaCliente = new PantallaCliente();
+                           //PantallaCliente pantallaCliente = new PantallaCliente();
                             //pantallaCliente.setVisible(true);
                             JOptionPane.showMessageDialog(null, "Cliente");
                             dispose();
@@ -98,8 +96,6 @@ public class PantallaInicioSesion extends JFrame {
                     for (Empleado empleado : empleados) {
                         tipoUsuario = empleado.iniciarSesion(nombreUsuario, correoUsuario);
                         if (tipoUsuario != 0) {
-                            JOptionPane.showMessageDialog(null, "Inicio de sesión exitoso como empleado con:\nUsuario: "
-                                    + empleado.getNomUsu() + "\nCódigo: " + empleado.getCodUsu());
                             //PantallaEmpleado pantallaEmpleado = new PantallaEmpleado();
                             //pantallaEmpleado.setVisible(true);
                             JOptionPane.showMessageDialog(null, "Empleado");
@@ -112,8 +108,6 @@ public class PantallaInicioSesion extends JFrame {
                     for (Gerente gerente : gerentes) {
                         tipoUsuario = gerente.iniciarSesion(nombreUsuario, correoUsuario);
                         if (tipoUsuario != 0) {
-                            JOptionPane.showMessageDialog(null, "Inicio de sesión exitoso como gerente con:\nUsuario: "
-                                    + gerente.getNomUsu() + "\nCódigo: " + gerente.getCodUsu());
                             //PantallaGerente pantallaGerente = new PantallaGerente();
                             //pantallaGerente.setVisible(true);
                             JOptionPane.showMessageDialog(null, "Gerente");
@@ -129,11 +123,11 @@ public class PantallaInicioSesion extends JFrame {
                 }
             }
         });
-        btnIngresar.setBounds(133, 322, 193, 50);
+        btnIngresar.setBounds(10, 322, 193, 50);
         contentPane.add(btnIngresar);
 
         JButton btnIrAtras = new JButton("Ir Atrás");
-        btnIrAtras.setFont(new Font("Tahoma", Font.PLAIN, 30));
+        btnIrAtras.setFont(new Font("Tahoma", Font.PLAIN, 20));
         btnIrAtras.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 PantallaOpciones pantallaOpciones = new PantallaOpciones();
@@ -141,12 +135,13 @@ public class PantallaInicioSesion extends JFrame {
                 dispose();
             }
         });
-        btnIrAtras.setBounds(328, 426, 193, 50);
+        btnIrAtras.setBounds(326, 323, 193, 50);
         contentPane.add(btnIrAtras);
         
         JLabel lblInicioSesion = new JLabel("Iniciar sesión");
+        lblInicioSesion.setHorizontalAlignment(SwingConstants.CENTER);
         lblInicioSesion.setFont(new Font("Tw Cen MT Condensed Extra Bold", Font.PLAIN, 50));
-        lblInicioSesion.setBounds(133, 0, 266, 86);
+        lblInicioSesion.setBounds(0, 0, 529, 86);
         contentPane.add(lblInicioSesion);
     }
 }
