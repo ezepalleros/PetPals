@@ -108,9 +108,8 @@ public class PantallaInicioSesion extends JFrame {
                     for (Gerente gerente : gerentes) {
                         tipoUsuario = gerente.iniciarSesion(nombreUsuario, correoUsuario);
                         if (tipoUsuario != 0) {
-                            //PantallaGerente pantallaGerente = new PantallaGerente();
-                            //pantallaGerente.setVisible(true);
-                            JOptionPane.showMessageDialog(null, "Gerente");
+                            PantallaGerente pantallaGerente = new PantallaGerente();
+                            pantallaGerente.setVisible(true);
                             dispose();
                             return;
                         }

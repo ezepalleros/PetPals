@@ -14,10 +14,11 @@ import javax.swing.SwingConstants;
 
 public class PantallaOpciones extends JFrame {
     
-    LocalDate fechaActual = LocalDate.now();
+    private LocalDate fechaActual = LocalDate.now();
     private static final long serialVersionUID = 1L;
     private JPanel contentPane;
     private JLabel lblDia;
+    private PantallaEdiSer pantallaEdiSer; // Referencia a la instancia de PantallaEdiSer
 
     /**
      * Launch the application.
@@ -83,6 +84,8 @@ public class PantallaOpciones extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 fechaActual = fechaActual.plusDays(1);
                 lblDia.setText("El dia de hoy es: " + fechaActual);
+                
+                actualizarFechaActualEnPantallaEdiSer(fechaActual);
             }
         });
         btnPasarDia.setFont(new Font("Stencil", Font.PLAIN, 19));
@@ -103,5 +106,17 @@ public class PantallaOpciones extends JFrame {
         lblDia.setFont(new Font("Tw Cen MT Condensed Extra Bold", Font.PLAIN, 17));
         lblDia.setBounds(0, 91, 270, 58);
         contentPane.add(lblDia);
+    }
+    
+    // Método para actualizar la fecha actual en PantallaEdiSer
+    private void actualizarFechaActualEnPantallaEdiSer(LocalDate fechaActual) {
+        if (pantallaEdiSer != null) {
+            pantallaEdiSer.actualizarFechaActual(fechaActual);
+        }
+    }
+
+    // Setter para la instancia de PantallaEdiSer
+    public void setPantallaEdiSer(PantallaEdiSer pantallaEdiSer) {
+        this.pantallaEdiSer = pantallaEdiSer;
     }
 }
