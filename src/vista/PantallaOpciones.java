@@ -18,7 +18,7 @@ public class PantallaOpciones extends JFrame {
     private static final long serialVersionUID = 1L;
     private JPanel contentPane;
     private JLabel lblDia;
-    private PantallaEdiSer pantallaEdiSer; // Referencia a la instancia de PantallaEdiSer
+    private PantallaEdiSer pantallaEdiSer;
 
     /**
      * Launch the application.
@@ -108,14 +108,12 @@ public class PantallaOpciones extends JFrame {
         contentPane.add(lblDia);
     }
     
-    // Método para actualizar la fecha actual en PantallaEdiSer
     private void actualizarFechaActualEnPantallaEdiSer(LocalDate fechaActual) {
         if (pantallaEdiSer != null) {
             pantallaEdiSer.actualizarFechaActual(fechaActual);
         }
     }
 
-    // Setter para la instancia de PantallaEdiSer
     public void setPantallaEdiSer(PantallaEdiSer pantallaEdiSer) {
         this.pantallaEdiSer = pantallaEdiSer;
     }
