@@ -1,6 +1,5 @@
 package vista;
 
-import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
@@ -100,7 +99,7 @@ public class PantallaGesSer extends JFrame {
 		btnAgregar.setBounds(181, 280, 362, 58);
 		btnAgregar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				PantallaAgrSer agregarServicio = new PantallaAgrSer();
+				PantallaAgrSer agregarServicio = new PantallaAgrSer(LocalDate.now());
 				agregarServicio.setVisible(true);
 				dispose();
 			}
@@ -113,7 +112,7 @@ public class PantallaGesSer extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				PantallaGerente pantallaGerente = new PantallaGerente();
 				pantallaGerente.setVisible(true);
-				dispose(); // Cierra la ventana actual (PantallaGesSer)
+				dispose();
 			}
 		});
 		contentPane.add(btnIrAtras);

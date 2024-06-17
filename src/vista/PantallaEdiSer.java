@@ -300,6 +300,23 @@ public class PantallaEdiSer extends JFrame {
 					int precioAve = Integer.parseInt(txtPrecioAve.getText());
 					int precioRoedor = Integer.parseInt(txtPrecioRoedor.getText());
 					int precioReptil = Integer.parseInt(txtPrecioReptil.getText());
+					
+					// Imprimir los valores que se van a enviar al constructor de Servicio
+					System.out.println("Editando servicio con los siguientes valores:");
+					System.out.println("Nombre: " + nombre);
+					System.out.println("Día: " + dia);
+					System.out.println("Hora de inicio: " + LocalDateTime.of(dia, horaInicio));
+					System.out.println("Hora de fin: " + LocalDateTime.of(dia, horaFin));
+					System.out.println("Puede atender perros: " + puedePerro);
+					System.out.println("Puede atender gatos: " + puedeGato);
+					System.out.println("Puede atender aves: " + puedeAve);
+					System.out.println("Puede atender roedores: " + puedeRoedor);
+					System.out.println("Puede atender reptiles: " + puedeReptil);
+					System.out.println("Precio por perro: " + precioPerro);
+					System.out.println("Precio por gato: " + precioGato);
+					System.out.println("Precio por ave: " + precioAve);
+					System.out.println("Precio por roedor: " + precioRoedor);
+					System.out.println("Precio por reptil: " + precioReptil);
 
 					Servicio servicioActualizado = new Servicio(servicio.getCodSer(), nombre, dia,
 							LocalDateTime.of(dia, horaInicio), LocalDateTime.of(dia, horaFin), puedePerro, puedeGato,
