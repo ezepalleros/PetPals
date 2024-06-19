@@ -331,7 +331,7 @@ public class PantallaAgrSer extends JFrame {
 							puedeAve, puedeRoedor, puedeReptil, precioPerro, precioGato, precioAve, precioRoedor,
 							precioReptil);
 
-					controlador.addService(servicio);
+					controlador.addService2(servicio);
 				}
 			}
 		});

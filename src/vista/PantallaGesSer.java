@@ -5,7 +5,7 @@ import java.awt.event.ActionListener;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
-
+import javax.swing.JCheckBox;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -19,7 +19,6 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
-
 import controladores.ServicioControlador;
 import modelos.Servicio;
 
@@ -36,6 +35,8 @@ public class PantallaGesSer extends JFrame {
     private Servicio seleccionado;
     private JButton btnBuscar;
     private JTextField txtBuscar;
+    private JCheckBox chckbxPerro, chckbxGato, chckbxAve, chckbxRoedor, chckbxReptil;
+    private JButton btnFiltrar;
 
     /**
      * Create the frame.
@@ -43,7 +44,7 @@ public class PantallaGesSer extends JFrame {
     public PantallaGesSer(LocalDate diaActual) {
         this.diaActual = diaActual;
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(100, 100, 942, 390);
+        setBounds(100, 100, 942, 402);
         contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         setContentPane(contentPane);
@@ -67,7 +68,7 @@ public class PantallaGesSer extends JFrame {
         contentPane.add(elemento);
 
         JButton btnEliminar = new JButton("Eliminar");
-        btnEliminar.setBounds(553, 280, 187, 58);
+        btnEliminar.setBounds(553, 293, 187, 58);
         btnEliminar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if (seleccionado.getCodSer() != 0) {
@@ -84,7 +85,7 @@ public class PantallaGesSer extends JFrame {
         contentPane.add(btnEliminar);
 
         JButton btnEditar = new JButton("Editar");
-        btnEditar.setBounds(5, 280, 166, 58);
+        btnEditar.setBounds(5, 293, 166, 58);
         btnEditar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if (seleccionado.getCodSer() != 0) {
@@ -99,7 +100,7 @@ public class PantallaGesSer extends JFrame {
         contentPane.add(btnEditar);
 
         JButton btnAgregar = new JButton("Agregar servicio");
-        btnAgregar.setBounds(181, 280, 362, 58);
+        btnAgregar.setBounds(181, 293, 362, 58);
         btnAgregar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 PantallaAgrSer agregarServicio = new PantallaAgrSer(LocalDate.now());
@@ -110,7 +111,7 @@ public class PantallaGesSer extends JFrame {
         contentPane.add(btnAgregar);
 
         JButton btnIrAtras = new JButton("Ir atrás");
-        btnIrAtras.setBounds(750, 280, 166, 58);
+        btnIrAtras.setBounds(750, 293, 166, 58);
         btnIrAtras.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 PantallaGerente pantallaGerente = new PantallaGerente();
@@ -133,6 +134,36 @@ public class PantallaGesSer extends JFrame {
             }
         });
         contentPane.add(btnBuscar);
+
+        // Añadir checkboxes para filtrar por tipo de animal
+        chckbxPerro = new JCheckBox("Perro");
+        chckbxPerro.setBounds(5, 255, 97, 23);
+        contentPane.add(chckbxPerro);
+
+        chckbxGato = new JCheckBox("Gato");
+        chckbxGato.setBounds(105, 255, 97, 23);
+        contentPane.add(chckbxGato);
+
+        chckbxAve = new JCheckBox("Ave");
+        chckbxAve.setBounds(205, 255, 97, 23);
+        contentPane.add(chckbxAve);
+
+        chckbxRoedor = new JCheckBox("Roedor");
+        chckbxRoedor.setBounds(305, 255, 97, 23);
+        contentPane.add(chckbxRoedor);
+
+        chckbxReptil = new JCheckBox("Reptil");
+        chckbxReptil.setBounds(405, 255, 97, 23);
+        contentPane.add(chckbxReptil);
+
+        btnFiltrar = new JButton("Filtrar");
+        btnFiltrar.setBounds(505, 255, 89, 23);
+        btnFiltrar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                filtrarServicios();
+            }
+        });
+        contentPane.add(btnFiltrar);
 
         ListSelectionModel selectionModel = table.getSelectionModel();
         selectionModel.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -215,6 +246,32 @@ public class PantallaGesSer extends JFrame {
         }
         if (!encontrado) {
             JOptionPane.showMessageDialog(null, "No se encontró ningún servicio con ese nombre.");
+        }
+    }
+
+    private void filtrarServicios() {
+        boolean filtrarPerro = chckbxPerro.isSelected();
+        boolean filtrarGato = chckbxGato.isSelected();
+        boolean filtrarAve = chckbxAve.isSelected();
+        boolean filtrarRoedor = chckbxRoedor.isSelected();
+        boolean filtrarReptil = chckbxReptil.isSelected();
+
+        model.setRowCount(0);
+        List<Servicio> servicios = controlador.getAllServices();
+        for (Servicio servicio : servicios) {
+            boolean cumpleFiltro = (!filtrarPerro || servicio.getPuedePerro() == 1)
+                    && (!filtrarGato || servicio.getPuedeGato() == 1)
+                    && (!filtrarAve || servicio.getPuedeAve() == 1)
+                    && (!filtrarRoedor || servicio.getPuedeRoedor() == 1)
+                    && (!filtrarReptil || servicio.getPuedeReptil() == 1);
+
+            if (cumpleFiltro) {
+                model.addRow(new Object[] { servicio.getCodSer(), servicio.getNomSer(), servicio.getDiaSer(),
+                        servicio.getHoraIniSer(), servicio.getHoraFinSer(), servicio.getPuedePerro(),
+                        servicio.getPuedeGato(), servicio.getPuedeAve(), servicio.getPuedeRoedor(),
+                        servicio.getPuedeReptil(), servicio.getPrecioPerro(), servicio.getPrecioGato(),
+                        servicio.getPrecioAve(), servicio.getPrecioRoedor(), servicio.getPrecioReptil() });
+            }
         }
     }
 }

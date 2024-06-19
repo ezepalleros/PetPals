@@ -297,6 +297,36 @@ public class ServicioControlador implements ServicioRepository {
 			e.printStackTrace();
 		}
 	}
+	
+	@Override
+	public void addService2(Servicio servicio) {
+		
+		try {
+				PreparedStatement statement = connection.prepareStatement(
+						"INSERT INTO servicio (nomSer, diaSer, horaIniSer, horaFinSer, puedePerro, puedeGato, puedeAve, puedeRoedor, puedeReptil, precioPerro, precioGato, precioAve, precioRoedor, precioReptil) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+				statement.setString(1, servicio.getNomSer());
+				statement.setDate(2, Date.valueOf(servicio.getDiaSer()));
+				statement.setTimestamp(3, Timestamp.valueOf(servicio.getHoraIniSer()));
+				statement.setTimestamp(4, Timestamp.valueOf(servicio.getHoraFinSer()));
+				statement.setInt(5, servicio.getPuedePerro());
+				statement.setInt(6, servicio.getPuedeGato());
+				statement.setInt(7, servicio.getPuedeAve());
+				statement.setInt(8, servicio.getPuedeRoedor());
+				statement.setInt(9, servicio.getPuedeReptil());
+				statement.setInt(10, servicio.getPrecioPerro());
+				statement.setInt(11, servicio.getPrecioGato());
+				statement.setInt(12, servicio.getPrecioAve());
+				statement.setInt(13, servicio.getPrecioRoedor());
+				statement.setInt(14, servicio.getPrecioReptil());
+
+				int rowsInserted = statement.executeUpdate();
+				if (rowsInserted > 0) {
+					JOptionPane.showMessageDialog(null, "Servicio insertado exitosamente");
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
 
 	public void fechaActual(LocalDate fechaActual) {
 		diaActual = fechaActual;
