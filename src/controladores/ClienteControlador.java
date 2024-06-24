@@ -63,6 +63,46 @@ public class ClienteControlador implements ClienteRepository {
 		}
 		return cliente;
 	}
+	
+	public List<Mascota> getPetsByClient(int codCli) {
+        List<Mascota> mascotas = new ArrayList<>();
+        try {
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM mascota WHERE dueMas = ?");
+            statement.setInt(1, codCli);
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                Mascota mascota = new Mascota(
+                    resultSet.getInt("codMas"),
+                    resultSet.getString("nomMas"),
+                    resultSet.getString("variMas"),
+                    resultSet.getString("tipoMas"),
+                    resultSet.getInt("edadMas"),
+                    resultSet.getInt("vacuMas"),
+                    resultSet.getString("caracMas"),
+                    resultSet.getInt("dietMas"),
+                    resultSet.getInt("chipMas"),
+                    resultSet.getInt("adoptar"),
+                    resultSet.getInt("dueMas")
+                );
+                mascotas.add(mascota);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return mascotas;
+    }
+
+    public String formatPetInfo(List<Mascota> mascotas) {
+        StringBuilder mensaje = new StringBuilder();
+        for (Mascota mascota : mascotas) {
+            mensaje.append("ID: ").append(mascota.getCodMas())
+                   .append(", Nombre: ").append(mascota.getNomMas())
+                   .append(", Tipo: ").append(mascota.getTipoMas())
+                   .append("\n");
+        }
+        return mensaje.toString();
+    }
 
 	@Override
 	public void addClient(Cliente cliente) {

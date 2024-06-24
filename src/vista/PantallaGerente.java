@@ -42,20 +42,41 @@ public class PantallaGerente extends JFrame {
             }
         });
         contentPane.add(btnGestionarServicios);
-
+        
         JButton btnGestionarEmpleados = new JButton("Gestionar Empleados");
         btnGestionarEmpleados.setBounds(108, 180, 324, 58);
         btnGestionarEmpleados.setFont(new Font("Stencil", Font.PLAIN, 19));
+        btnGestionarEmpleados.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	PantallaGesEmp pantallaGesEmp = new PantallaGesEmp();
+                pantallaGesEmp.setVisible(true);
+                dispose();
+            }
+        });
         contentPane.add(btnGestionarEmpleados);
-
+        
         JButton btnGestionarClientes = new JButton("Gestionar Clientes");
         btnGestionarClientes.setBounds(108, 260, 323, 58);
         btnGestionarClientes.setFont(new Font("Stencil", Font.PLAIN, 19));
+        btnGestionarClientes.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	PantallaGesCli pantallaGesCli = new PantallaGesCli();
+            	pantallaGesCli.setVisible(true);
+                dispose();
+            }
+        });
         contentPane.add(btnGestionarClientes);
-
+        
         JButton btnGestionarMascotas = new JButton("Gestionar Mascotas");
         btnGestionarMascotas.setBounds(108, 340, 323, 58);
         btnGestionarMascotas.setFont(new Font("Stencil", Font.PLAIN, 19));
+        btnGestionarMascotas.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	PantallaGesMas pantallaGesMas = new PantallaGesMas();
+            	pantallaGesMas.setVisible(true);
+                dispose();
+            }
+        });
         contentPane.add(btnGestionarMascotas);
 
         JButton btnIrAtras = new JButton("Ir atrás");

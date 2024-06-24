@@ -41,10 +41,31 @@ public class MascotaControlador implements MascotaRepository {
 	}
 
 	@Override
-	public Mascota getPetById(int id) {
+	public Mascota getPetById(int codCli) {
 		Mascota mascotas = null;
 		try {
 			PreparedStatement statement = connection.prepareStatement("SELECT * FROM mascota WHERE codMas = ?");
+			statement.setInt(1, codCli);
+
+			ResultSet resultSet = statement.executeQuery();
+
+			if (resultSet.next()) {
+				mascotas = new Mascota(resultSet.getInt("codMas"), resultSet.getString("nomMas"),
+						resultSet.getString("variMas"), resultSet.getString("tipoMas"), resultSet.getInt("edadMas"),
+						resultSet.getInt("vacuMas"), resultSet.getString("caracMas"), resultSet.getInt("dietMas"),
+						resultSet.getInt("chipMas"), resultSet.getInt("adoptar"), resultSet.getInt("dueMas"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return mascotas;
+	}
+	
+	@Override
+	public Mascota getPetsByClient(int id) {
+		Mascota mascotas = null;
+		try {
+			PreparedStatement statement = connection.prepareStatement("SELECT * FROM mascota WHERE dueMas = ?");
 			statement.setInt(1, id);
 
 			ResultSet resultSet = statement.executeQuery();
@@ -136,12 +157,15 @@ public class MascotaControlador implements MascotaRepository {
 			e.printStackTrace();
 		}
 	}
-
+	
 	@Override
-	public void updatePet(Mascota mascota) {
+	public void addPet2(Mascota mascota) {
+		
+		int codigoCliente = mascota.getDueMas();
+		
 		try {
 			PreparedStatement statement = connection.prepareStatement(
-					"UPDATE mascota SET nomMas = ?, variMas = ?, tipoMas = ?, edadMas = ?, vacuMas = ?, caracMas = ?, dietMas = ?, chipMas = ?, adoptar = ?, dueMas = ? WHERE codMas = ?");
+					"INSERT INTO mascota (nomMas, variMas, tipoMas, edadMas, vacuMas, caracMas, dietMas, chipMas, adoptar, dueMas) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 			statement.setString(1, mascota.getNomMas());
 			statement.setString(2, mascota.getVariMas());
 			statement.setString(3, mascota.getTipoMas());
@@ -151,15 +175,42 @@ public class MascotaControlador implements MascotaRepository {
 			statement.setInt(7, mascota.getDietMas());
 			statement.setInt(8, mascota.getChipMas());
 			statement.setInt(9, mascota.getAdoptar());
-			statement.setInt(10, mascota.getDueMas());
+			statement.setInt(10, codigoCliente);
 
-			int rowsUpdated = statement.executeUpdate();
-			if (rowsUpdated > 0) {
-				System.out.println("Mascota actualizada exitosamente");
+			int rowsInserted = statement.executeUpdate();
+			if (rowsInserted > 0) {
+				JOptionPane.showMessageDialog(null, "Mascota insertada exitosamente");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	@Override
+	public void updatePet(Mascota mascota) {
+	    try {
+	        PreparedStatement statement = connection.prepareStatement(
+	            "UPDATE mascota SET nomMas = ?, variMas = ?, tipoMas = ?, edadMas = ?, vacuMas = ?, " +
+	            "caracMas = ?, dietMas = ?, chipMas = ?, adoptar = ?, dueMas = ? WHERE codMas = ?");
+	        statement.setString(1, mascota.getNomMas());
+	        statement.setString(2, mascota.getVariMas());
+	        statement.setString(3, mascota.getTipoMas());
+	        statement.setInt(4, mascota.getEdadMas());
+	        statement.setInt(5, mascota.getVacuMas());
+	        statement.setString(6, mascota.getCaracMas());
+	        statement.setInt(7, mascota.getDietMas());
+	        statement.setInt(8, mascota.getChipMas());
+	        statement.setInt(9, mascota.getAdoptar());
+	        statement.setInt(10, mascota.getDueMas());
+	        statement.setInt(11, mascota.getCodMas());
+
+	        int rowsUpdated = statement.executeUpdate();
+	        if (rowsUpdated > 0) {
+	            System.out.println("Mascota actualizada exitosamente");
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
 	}
 
 	@Override
