@@ -2,7 +2,6 @@ package test;
 
 import static org.junit.Assert.assertEquals;
 
-import java.time.LocalDate;
 
 import org.junit.jupiter.api.Test;
 import controladores.ClienteControlador;

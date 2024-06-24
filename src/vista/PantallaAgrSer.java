@@ -134,37 +134,35 @@ public class PantallaAgrSer extends JFrame {
 				lblPrecioRoedor.setForeground(Color.BLACK);
 				lblPrecioReptil.setForeground(Color.BLACK);
 
-				// Validaciones
 				boolean error = false;
 
-				// Validaciones de nombre
+				// Nombre
 				String nombre = txtNombre.getText();
 				if (nombre.length() <= 3) {
 					lblNombre.setForeground(Color.RED);
 					error = true;
 				}
 
-				// Validaciones de día
+				// Dia final
 				String diaStr = txtDia.getText();
 				LocalDate dia = null;
 				if (!diaStr.isEmpty()) {
-				    try {
-				    	dia = LocalDate.parse(diaStr);
-				        if (dia.isBefore(LocalDate.now())) {
-				            lblDia.setForeground(Color.RED);
-				            error = true;
-				        }
-				    } catch (DateTimeParseException ex) {
-				        lblDia.setForeground(Color.RED);
-				        error = true;
-				    }
+					try {
+						dia = LocalDate.parse(diaStr);
+						if (dia.isBefore(LocalDate.now())) {
+							lblDia.setForeground(Color.RED);
+							error = true;
+						}
+					} catch (DateTimeParseException ex) {
+						lblDia.setForeground(Color.RED);
+						error = true;
+					}
 				} else {
-				    lblDia.setForeground(Color.RED);
-				    error = true;
+					lblDia.setForeground(Color.RED);
+					error = true;
 				}
 
-
-				// Validaciones de hora de inicio
+				// Hora de inicio
 				String horaInicioStr = txtHoraInicio.getText();
 				LocalTime horaInicio = null;
 				try {
@@ -180,8 +178,7 @@ public class PantallaAgrSer extends JFrame {
 					error = true;
 				}
 
-
-				// Validaciones de hora de fin
+				// Hora de final
 				String horaFinStr = txtHoraFin.getText();
 				LocalTime horaFin = null;
 				try {
@@ -200,7 +197,7 @@ public class PantallaAgrSer extends JFrame {
 					error = true;
 				}
 
-				// Validar checkbox de perro y precio
+				// Checkbox de perro y precio
 				if (chkPerro.isSelected()) {
 					try {
 						int precioPerro = Integer.parseInt(txtPrecioPerro.getText());
@@ -214,7 +211,7 @@ public class PantallaAgrSer extends JFrame {
 					}
 				}
 
-				// Validar checkbox de gato y precio
+				// Checkbox de gato y precio
 				if (chkGato.isSelected()) {
 					try {
 						int precioGato = Integer.parseInt(txtPrecioGato.getText());
@@ -228,7 +225,7 @@ public class PantallaAgrSer extends JFrame {
 					}
 				}
 
-				// Validar checkbox de ave y precio
+				// Checkbox de ave y precio
 				if (chkAve.isSelected()) {
 					try {
 						int precioAve = Integer.parseInt(txtPrecioAve.getText());
@@ -242,7 +239,7 @@ public class PantallaAgrSer extends JFrame {
 					}
 				}
 
-				// Validar checkbox de roedor y precio
+				// Checkbox de roedor y precio
 				if (chkRoedor.isSelected()) {
 					try {
 						int precioRoedor = Integer.parseInt(txtPrecioRoedor.getText());
@@ -256,7 +253,7 @@ public class PantallaAgrSer extends JFrame {
 					}
 				}
 
-				// Validar checkbox de reptil y precio
+				// Checkbox de reptil y precio
 				if (chkReptil.isSelected()) {
 					try {
 						int precioReptil = Integer.parseInt(txtPrecioReptil.getText());
@@ -270,7 +267,7 @@ public class PantallaAgrSer extends JFrame {
 					}
 				}
 
-				// Validar que al menos un tipo de animal esté seleccionado
+				// Al menos un tipo de animal esté seleccionado
 				if (!chkPerro.isSelected() && !chkGato.isSelected() && !chkAve.isSelected() && !chkRoedor.isSelected()
 						&& !chkReptil.isSelected()) {
 					lblPerro.setForeground(Color.RED);
@@ -309,8 +306,8 @@ public class PantallaAgrSer extends JFrame {
 					if (precioReptil == 1) {
 						precioReptil = Integer.parseInt(txtPrecioReptil.getText());
 					}
-					
-					// Imprimir los valores que se van a enviar al constructor de Servicio
+
+					// Imprimir
 					System.out.println("Creando servicio con los siguientes valores:");
 					System.out.println("Nombre: " + nombre);
 					System.out.println("Día: " + dia);
@@ -327,9 +324,9 @@ public class PantallaAgrSer extends JFrame {
 					System.out.println("Precio por roedor: " + precioRoedor);
 					System.out.println("Precio por reptil: " + precioReptil);
 
-					Servicio servicio = new Servicio(0, nombre, dia, LocalDateTime.of(dia, horaInicio), LocalDateTime.of(dia, horaFin), puedePerro, puedeGato,
-							puedeAve, puedeRoedor, puedeReptil, precioPerro, precioGato, precioAve, precioRoedor,
-							precioReptil);
+					Servicio servicio = new Servicio(0, nombre, dia, LocalDateTime.of(dia, horaInicio),
+							LocalDateTime.of(dia, horaFin), puedePerro, puedeGato, puedeAve, puedeRoedor, puedeReptil,
+							precioPerro, precioGato, precioAve, precioRoedor, precioReptil);
 
 					controlador.addService2(servicio);
 				}

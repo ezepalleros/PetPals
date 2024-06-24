@@ -15,6 +15,10 @@ import java.time.LocalTime;
 
 public class PantallaEdiSer extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private Servicio servicio;
 	private ServicioControlador controlador;
@@ -131,7 +135,7 @@ public class PantallaEdiSer extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				boolean error = false;
 
-				// Validaciones de nombre
+				// Nombre
 				String nombre = txtNombre.getText();
 				if (nombre.length() <= 3) {
 					lblNombre.setForeground(Color.RED);
@@ -140,7 +144,7 @@ public class PantallaEdiSer extends JFrame {
 					lblNombre.setForeground(Color.BLACK);
 				}
 
-				// Validaciones de día
+				// Día final
 				String diaStr = txtDia.getText();
 				LocalDate dia = null;
 				try {
@@ -156,7 +160,7 @@ public class PantallaEdiSer extends JFrame {
 					error = true;
 				}
 
-				// Validaciones de hora de inicio
+				// Hora de inicio
 				String horaInicioStr = txtHoraInicio.getText();
 				LocalTime horaInicio = null;
 				try {
@@ -172,7 +176,7 @@ public class PantallaEdiSer extends JFrame {
 					error = true;
 				}
 
-				// Validaciones de hora de fin
+				// Hora de fin
 				String horaFinStr = txtHoraFin.getText();
 				LocalTime horaFin = null;
 				try {
@@ -191,7 +195,7 @@ public class PantallaEdiSer extends JFrame {
 					error = true;
 				}
 
-				// Validar checkbox de perro
+				// Checkbox de perro
 				if (chkPerro.isSelected()) {
 					try {
 						int precioPerro = Integer.parseInt(txtPrecioPerro.getText());
@@ -207,7 +211,7 @@ public class PantallaEdiSer extends JFrame {
 					}
 				}
 
-				// Validar checkbox de gato
+				// Checkbox de gato
 				if (chkGato.isSelected()) {
 					try {
 						int precioGato = Integer.parseInt(txtPrecioGato.getText());
@@ -223,7 +227,7 @@ public class PantallaEdiSer extends JFrame {
 					}
 				}
 
-				// Validar checkbox de ave
+				// Checkbox de ave
 				if (chkAve.isSelected()) {
 					try {
 						int precioAve = Integer.parseInt(txtPrecioAve.getText());
@@ -239,7 +243,7 @@ public class PantallaEdiSer extends JFrame {
 					}
 				}
 
-				// Validar checkbox de roedor
+				// Checkbox de roedor
 				if (chkRoedor.isSelected()) {
 					try {
 						int precioRoedor = Integer.parseInt(txtPrecioRoedor.getText());
@@ -255,7 +259,7 @@ public class PantallaEdiSer extends JFrame {
 					}
 				}
 
-				// Validar checkbox de reptil
+				// Checkbox de reptil
 				if (chkReptil.isSelected()) {
 					try {
 						int precioReptil = Integer.parseInt(txtPrecioReptil.getText());
@@ -271,7 +275,7 @@ public class PantallaEdiSer extends JFrame {
 					}
 				}
 
-				// Validar que al menos un tipo de animal esté seleccionado
+				// Al menos un tipo de animal esté seleccionado
 				if (!chkPerro.isSelected() && !chkGato.isSelected() && !chkAve.isSelected() && !chkRoedor.isSelected()
 						&& !chkReptil.isSelected()) {
 					lblPerro.setForeground(Color.RED);
@@ -288,7 +292,6 @@ public class PantallaEdiSer extends JFrame {
 					lblReptil.setForeground(Color.BLACK);
 				}
 
-				// Si no hay errores, actualizar el servicio
 				if (!error) {
 					int puedePerro = chkPerro.isSelected() ? 1 : 0;
 					int puedeGato = chkGato.isSelected() ? 1 : 0;
@@ -300,8 +303,8 @@ public class PantallaEdiSer extends JFrame {
 					int precioAve = Integer.parseInt(txtPrecioAve.getText());
 					int precioRoedor = Integer.parseInt(txtPrecioRoedor.getText());
 					int precioReptil = Integer.parseInt(txtPrecioReptil.getText());
-					
-					// Imprimir los valores que se van a enviar al constructor de Servicio
+
+					// Imprimir
 					System.out.println("Editando servicio con los siguientes valores:");
 					System.out.println("Nombre: " + nombre);
 					System.out.println("Día: " + dia);

@@ -1,7 +1,4 @@
 package modelos;
-import java.util.LinkedList;
-
-import javax.swing.JOptionPane;
 
 public class Mascota {
     private int codMas;
