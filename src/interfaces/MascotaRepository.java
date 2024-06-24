@@ -10,7 +10,7 @@ public interface MascotaRepository {
     
     Mascota getPetById(int id); //llama solo a uno, por su id
     
-	Mascota getPetsByClient(int id); //llama a sus mascotas, por su id
+	List<Mascota> getPetsByClient(int id); //llama a sus mascotas, por su id
     
     void addPet(Mascota mascota); //añade usuarios a la bdd
     

@@ -26,8 +26,10 @@ public class PantallaReaAdo extends JFrame {
     private JTable table;
     private DefaultTableModel model;
     private Mascota seleccionada;
+    private int codCli;
 
-    public PantallaReaAdo() {
+    public PantallaReaAdo(int codCli) {
+    	this.codCli = codCli;
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 942, 402);
         contentPane = new JPanel();
@@ -57,6 +59,8 @@ public class PantallaReaAdo extends JFrame {
                     adoptarControlador.addAdoption(nuevaAdopcion);
                     JOptionPane.showMessageDialog(null, "Solicitud de adopción creada exitosamente");
                     dispose();
+                    PantallaCliente pantallaCliente = new PantallaCliente(codCli);
+                    pantallaCliente.setVisible(true);
                 } else {
                     JOptionPane.showMessageDialog(null, "Seleccione una mascota para adoptar");
                 }

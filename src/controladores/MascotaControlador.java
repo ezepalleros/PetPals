@@ -62,25 +62,35 @@ public class MascotaControlador implements MascotaRepository {
 	}
 	
 	@Override
-	public Mascota getPetsByClient(int id) {
-		Mascota mascotas = null;
-		try {
-			PreparedStatement statement = connection.prepareStatement("SELECT * FROM mascota WHERE dueMas = ?");
-			statement.setInt(1, id);
+	public List<Mascota> getPetsByClient(int id) {
+        List<Mascota> mascotas = new ArrayList<>();
+        try {
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM mascota WHERE dueMas = ?");
+            statement.setInt(1, id);
 
-			ResultSet resultSet = statement.executeQuery();
+            ResultSet resultSet = statement.executeQuery();
 
-			if (resultSet.next()) {
-				mascotas = new Mascota(resultSet.getInt("codMas"), resultSet.getString("nomMas"),
-						resultSet.getString("variMas"), resultSet.getString("tipoMas"), resultSet.getInt("edadMas"),
-						resultSet.getInt("vacuMas"), resultSet.getString("caracMas"), resultSet.getInt("dietMas"),
-						resultSet.getInt("chipMas"), resultSet.getInt("adoptar"), resultSet.getInt("dueMas"));
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return mascotas;
-	}
+            while (resultSet.next()) {
+                Mascota mascota = new Mascota(
+                    resultSet.getInt("codMas"),
+                    resultSet.getString("nomMas"),
+                    resultSet.getString("variMas"),
+                    resultSet.getString("tipoMas"),
+                    resultSet.getInt("edadMas"),
+                    resultSet.getInt("vacuMas"),
+                    resultSet.getString("caracMas"),
+                    resultSet.getInt("dietMas"),
+                    resultSet.getInt("chipMas"),
+                    resultSet.getInt("adoptar"),
+                    resultSet.getInt("dueMas")
+                );
+                mascotas.add(mascota);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return mascotas;
+    }
 
 	@Override
 	public void addPet(Mascota mascota) {

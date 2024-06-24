@@ -2,6 +2,7 @@ package vista;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -42,8 +43,8 @@ public class PantallaVerMas extends JFrame {
 
         mascotaControlador = new MascotaControlador();
 
-        Mascota mascotaCliente = mascotaControlador.getPetsByClient(codCli);
-        if (mascotaCliente == null) {
+        List<Mascota> mascotasCliente = mascotaControlador.getPetsByClient(codCli);
+        if (mascotasCliente.isEmpty()) {
             JOptionPane.showMessageDialog(null, "El cliente no tiene mascotas registradas");
             dispose();
         }
@@ -51,7 +52,7 @@ public class PantallaVerMas extends JFrame {
         String[] columnNames = { "ID", "Nombre", "Variedad", "Tipo", "Edad", "Vacunado", "Características", "Dieta", "Chip", "Adoptar", "Dueño" };
         model = new DefaultTableModel(columnNames, 0);
         table = new JTable(model);
-        actualizarTabla(mascotaCliente);
+        actualizarTabla(mascotasCliente);
         contentPane.setLayout(null);
 
         JScrollPane scrollPane = new JScrollPane(table);
@@ -137,17 +138,27 @@ public class PantallaVerMas extends JFrame {
                 } else {
                     seleccionada = null;
                     elemento.setText("Seleccionado:");
-                    
-                    
                 }
             }
         });
     }
 
-    private void actualizarTabla(Mascota mascota) {
+    private void actualizarTabla(List<Mascota> mascotas) {
         model.setRowCount(0);
-        model.addRow(new Object[] { mascota.getCodMas(), mascota.getNomMas(), mascota.getVariMas(), mascota.getTipoMas(),
-                mascota.getEdadMas(), mascota.getVacuMas(), mascota.getCaracMas(), mascota.getDietMas(), 
-                mascota.getChipMas(), mascota.getAdoptar(), mascota.getDueMas() });
+        for (Mascota mascota : mascotas) {
+            model.addRow(new Object[] {
+                mascota.getCodMas(),
+                mascota.getNomMas(),
+                mascota.getVariMas(),
+                mascota.getTipoMas(),
+                mascota.getEdadMas(),
+                mascota.getVacuMas(),
+                mascota.getCaracMas(),
+                mascota.getDietMas(),
+                mascota.getChipMas(),
+                mascota.getAdoptar(),
+                mascota.getDueMas()
+            });
+        }
     }
 }

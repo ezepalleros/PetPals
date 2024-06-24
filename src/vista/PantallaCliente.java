@@ -3,6 +3,8 @@ package vista;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -10,10 +12,16 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
+import modelos.Mascota;
+import controladores.MascotaControlador;
+
+
+
 public class PantallaCliente extends JFrame {
 
     private static final long serialVersionUID = 1L;
     private JPanel contentPane;
+    
 
     /**
      * Create the frame.
@@ -49,19 +57,23 @@ public class PantallaCliente extends JFrame {
         btnSolicitarServicio.setFont(new Font("Stencil", Font.PLAIN, 19));
         btnSolicitarServicio.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                //PantallaSolSer pantallaSolSer = new PantallaSolSer();
-                //pantallaSolSer.setVisible(true);
+                MascotaControlador mascotaControlador = new MascotaControlador();
+                List<Mascota> mascotas = mascotaControlador.getPetsByClient(codigoCliente);
+                PantallaSolSer pantallaSolSer = new PantallaSolSer(mascotas, codigoCliente);
+                pantallaSolSer.setVisible(true);
                 dispose();
             }
         });
         contentPane.add(btnSolicitarServicio);
+
+
 
         JButton btnRealizarAdopcion = new JButton("Realizar Adopción");
         btnRealizarAdopcion.setBounds(108, 260, 323, 58);
         btnRealizarAdopcion.setFont(new Font("Stencil", Font.PLAIN, 19));
         btnRealizarAdopcion.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                PantallaReaAdo pantallaReaAdo = new PantallaReaAdo();
+                PantallaReaAdo pantallaReaAdo = new PantallaReaAdo(codigoCliente);
                 pantallaReaAdo.setVisible(true);
                 dispose();
             }
