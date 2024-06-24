@@ -28,7 +28,7 @@ public class AdoptarControlador implements AdoptarRepository {
 
 			while (resultSet.next()) {
 				Adoptar adoptar = new Adoptar(resultSet.getInt("codAdo"), resultSet.getInt("codMas"),
-						resultSet.getString("variMas"), resultSet.getInt("edadMas"), resultSet.getInt("codCli"), resultSet.getString("numCli"));
+						resultSet.getString("variMas"), resultSet.getInt("edadMas"), resultSet.getInt("codCli"));
 				adopciones.add(adoptar);
 			}
 		} catch (SQLException e) {
@@ -48,7 +48,7 @@ public class AdoptarControlador implements AdoptarRepository {
 
 			if (resultSet.next()) {
 				adopciones = new Adoptar(resultSet.getInt("codAdo"), resultSet.getInt("codMas"),
-						resultSet.getString("variMas"), resultSet.getInt("edadMas"), resultSet.getInt("codCli"), resultSet.getString("numCli"));
+						resultSet.getString("variMas"), resultSet.getInt("edadMas"), resultSet.getInt("codCli"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -60,12 +60,11 @@ public class AdoptarControlador implements AdoptarRepository {
 	public void addAdoption(Adoptar adoptar) {
 		try {
 			PreparedStatement statement = connection.prepareStatement(
-					"INSERT INTO adoptar (codMas, variMas, edadMas, codCli, numCli) VALUES (?, ?, ?, ?, ?)");
+					"INSERT INTO adoptar (codMas, variMas, edadMas, codCli) VALUES (?, ?, ?, ?)");
 			statement.setInt(1, adoptar.getCodMas());
 			statement.setString(2, adoptar.getVariMas());
 			statement.setInt(3, adoptar.getEdadMas());
 			statement.setInt(4, adoptar.getCodCli());
-			statement.setString(5, adoptar.getNumCli());
 
 			int rowsInserted = statement.executeUpdate();
 			if (rowsInserted > 0) {
@@ -80,12 +79,11 @@ public class AdoptarControlador implements AdoptarRepository {
 	public void updateAdoption(Adoptar adoptar) {
 		try {
 			PreparedStatement statement = connection.prepareStatement(
-					"UPDATE adoptar SET codMas = ?, variMas = ?, edadMas = ?, codCli = ?, numCli = ? WHERE codAdo = ?");
+					"UPDATE adoptar SET codMas = ?, variMas = ?, edadMas = ?, codCli = ? WHERE codAdo = ?");
 			statement.setInt(1, adoptar.getCodMas());
 			statement.setString(2, adoptar.getVariMas());
 			statement.setInt(3, adoptar.getEdadMas());
 			statement.setInt(4, adoptar.getCodCli());
-			statement.setString(5, adoptar.getNumCli());
 
 			int rowsUpdated = statement.executeUpdate();
 			if (rowsUpdated > 0) {

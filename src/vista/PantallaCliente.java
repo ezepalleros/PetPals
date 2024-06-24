@@ -61,8 +61,8 @@ public class PantallaCliente extends JFrame {
         btnRealizarAdopcion.setFont(new Font("Stencil", Font.PLAIN, 19));
         btnRealizarAdopcion.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                //PantallaReaAdo pantallaReaAdo = new PantallaReaAdo();
-                //pantallaReaAdo.setVisible(true);
+                PantallaReaAdo pantallaReaAdo = new PantallaReaAdo();
+                pantallaReaAdo.setVisible(true);
                 dispose();
             }
         });

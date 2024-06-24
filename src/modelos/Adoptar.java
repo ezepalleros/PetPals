@@ -6,16 +6,14 @@ public class Adoptar {
     private String variMas;
     private int edadMas;
     private int codCli;
-    private String numCli;
     
-	public Adoptar(int codAdo, int codMas, String variMas, int edadMas, int codCli, String numCli) {
+	public Adoptar(int codAdo, int codMas, String variMas, int edadMas, int codCli) {
 		super();
 		this.codAdo = codAdo;
 		this.codMas = codMas;
 		this.variMas = variMas;
 		this.edadMas = edadMas;
 		this.codCli = codCli;
-		this.numCli = numCli;
 	}
 
 	public int getCodAdo() {
@@ -56,13 +54,5 @@ public class Adoptar {
 
 	public void setCodCli(int codCli) {
 		this.codCli = codCli;
-	}
-
-	public String getNumCli() {
-		return numCli;
-	}
-
-	public void setNumCli(String numCli) {
-		this.numCli = numCli;
 	}
 }
