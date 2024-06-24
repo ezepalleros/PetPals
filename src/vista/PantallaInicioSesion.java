@@ -96,9 +96,8 @@ public class PantallaInicioSesion extends JFrame {
                     for (Empleado empleado : empleados) {
                         tipoUsuario = empleado.iniciarSesion(nombreUsuario, correoUsuario);
                         if (tipoUsuario != 0) {
-                            //PantallaEmpleado pantallaEmpleado = new PantallaEmpleado();
-                            //pantallaEmpleado.setVisible(true);
-                            JOptionPane.showMessageDialog(null, "Empleado");
+                            PantallaEmpleado pantallaEmpleado = new PantallaEmpleado();
+                            pantallaEmpleado.setVisible(true);
                             dispose();
                             return;
                         }

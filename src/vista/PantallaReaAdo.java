@@ -55,7 +55,7 @@ public class PantallaReaAdo extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 if (seleccionada != null && seleccionada.getAdoptar() == 1) {
                     AdoptarControlador adoptarControlador = new AdoptarControlador();
-                    Adoptar nuevaAdopcion = new Adoptar(0, seleccionada.getCodMas(), seleccionada.getVariMas(), seleccionada.getEdadMas(), seleccionada.getDueMas());
+                    Adoptar nuevaAdopcion = new Adoptar(0, seleccionada.getCodMas(), seleccionada.getVariMas(), seleccionada.getEdadMas(), codCli);
                     adoptarControlador.addAdoption(nuevaAdopcion);
                     JOptionPane.showMessageDialog(null, "Solicitud de adopción creada exitosamente");
                     dispose();
